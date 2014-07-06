@@ -1,0 +1,453 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7A43F2581969FF8F000AC8BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2571969FF8F000AC8BE /* Foundation.framework */; };
+		7A43F25A1969FF8F000AC8BE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2591969FF8F000AC8BE /* CoreGraphics.framework */; };
+		7A43F25C1969FF8F000AC8BE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F25B1969FF8F000AC8BE /* UIKit.framework */; };
+		7A43F2621969FF8F000AC8BE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A43F2601969FF8F000AC8BE /* InfoPlist.strings */; };
+		7A43F2641969FF8F000AC8BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43F2631969FF8F000AC8BE /* main.m */; };
+		7A43F2681969FF8F000AC8BE /* ICBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43F2671969FF8F000AC8BE /* ICBAppDelegate.m */; };
+		7A43F26A1969FF8F000AC8BE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A43F2691969FF8F000AC8BE /* Images.xcassets */; };
+		7A43F2711969FF8F000AC8BE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2701969FF8F000AC8BE /* XCTest.framework */; };
+		7A43F2721969FF8F000AC8BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2571969FF8F000AC8BE /* Foundation.framework */; };
+		7A43F2731969FF8F000AC8BE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F25B1969FF8F000AC8BE /* UIKit.framework */; };
+		7A43F27B1969FF8F000AC8BE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A43F2791969FF8F000AC8BE /* InfoPlist.strings */; };
+		7A43F27D1969FF8F000AC8BE /* Icebreaker2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43F27C1969FF8F000AC8BE /* Icebreaker2Tests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7A43F2741969FF8F000AC8BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A43F24C1969FF8F000AC8BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A43F2531969FF8F000AC8BE;
+			remoteInfo = Icebreaker2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7A43F2541969FF8F000AC8BE /* Icebreaker2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Icebreaker2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A43F2571969FF8F000AC8BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7A43F2591969FF8F000AC8BE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7A43F25B1969FF8F000AC8BE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7A43F25F1969FF8F000AC8BE /* Icebreaker2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Icebreaker2-Info.plist"; sourceTree = "<group>"; };
+		7A43F2611969FF8F000AC8BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7A43F2631969FF8F000AC8BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7A43F2651969FF8F000AC8BE /* Icebreaker2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Icebreaker2-Prefix.pch"; sourceTree = "<group>"; };
+		7A43F2661969FF8F000AC8BE /* ICBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICBAppDelegate.h; sourceTree = "<group>"; };
+		7A43F2671969FF8F000AC8BE /* ICBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICBAppDelegate.m; sourceTree = "<group>"; };
+		7A43F2691969FF8F000AC8BE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7A43F26F1969FF8F000AC8BE /* Icebreaker2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Icebreaker2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A43F2701969FF8F000AC8BE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		7A43F2781969FF8F000AC8BE /* Icebreaker2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Icebreaker2Tests-Info.plist"; sourceTree = "<group>"; };
+		7A43F27A1969FF8F000AC8BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7A43F27C1969FF8F000AC8BE /* Icebreaker2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Icebreaker2Tests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A43F2511969FF8F000AC8BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A43F25A1969FF8F000AC8BE /* CoreGraphics.framework in Frameworks */,
+				7A43F25C1969FF8F000AC8BE /* UIKit.framework in Frameworks */,
+				7A43F2581969FF8F000AC8BE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A43F26C1969FF8F000AC8BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A43F2711969FF8F000AC8BE /* XCTest.framework in Frameworks */,
+				7A43F2731969FF8F000AC8BE /* UIKit.framework in Frameworks */,
+				7A43F2721969FF8F000AC8BE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7A43F24B1969FF8F000AC8BE = {
+			isa = PBXGroup;
+			children = (
+				7A43F25D1969FF8F000AC8BE /* Icebreaker2 */,
+				7A43F2761969FF8F000AC8BE /* Icebreaker2Tests */,
+				7A43F2561969FF8F000AC8BE /* Frameworks */,
+				7A43F2551969FF8F000AC8BE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7A43F2551969FF8F000AC8BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A43F2541969FF8F000AC8BE /* Icebreaker2.app */,
+				7A43F26F1969FF8F000AC8BE /* Icebreaker2Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A43F2561969FF8F000AC8BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A43F2571969FF8F000AC8BE /* Foundation.framework */,
+				7A43F2591969FF8F000AC8BE /* CoreGraphics.framework */,
+				7A43F25B1969FF8F000AC8BE /* UIKit.framework */,
+				7A43F2701969FF8F000AC8BE /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A43F25D1969FF8F000AC8BE /* Icebreaker2 */ = {
+			isa = PBXGroup;
+			children = (
+				7A43F2661969FF8F000AC8BE /* ICBAppDelegate.h */,
+				7A43F2671969FF8F000AC8BE /* ICBAppDelegate.m */,
+				7A43F2691969FF8F000AC8BE /* Images.xcassets */,
+				7A43F25E1969FF8F000AC8BE /* Supporting Files */,
+			);
+			path = Icebreaker2;
+			sourceTree = "<group>";
+		};
+		7A43F25E1969FF8F000AC8BE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7A43F25F1969FF8F000AC8BE /* Icebreaker2-Info.plist */,
+				7A43F2601969FF8F000AC8BE /* InfoPlist.strings */,
+				7A43F2631969FF8F000AC8BE /* main.m */,
+				7A43F2651969FF8F000AC8BE /* Icebreaker2-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7A43F2761969FF8F000AC8BE /* Icebreaker2Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7A43F27C1969FF8F000AC8BE /* Icebreaker2Tests.m */,
+				7A43F2771969FF8F000AC8BE /* Supporting Files */,
+			);
+			path = Icebreaker2Tests;
+			sourceTree = "<group>";
+		};
+		7A43F2771969FF8F000AC8BE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7A43F2781969FF8F000AC8BE /* Icebreaker2Tests-Info.plist */,
+				7A43F2791969FF8F000AC8BE /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A43F2531969FF8F000AC8BE /* Icebreaker2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A43F2801969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Icebreaker2" */;
+			buildPhases = (
+				7A43F2501969FF8F000AC8BE /* Sources */,
+				7A43F2511969FF8F000AC8BE /* Frameworks */,
+				7A43F2521969FF8F000AC8BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Icebreaker2;
+			productName = Icebreaker2;
+			productReference = 7A43F2541969FF8F000AC8BE /* Icebreaker2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7A43F26E1969FF8F000AC8BE /* Icebreaker2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A43F2831969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Icebreaker2Tests" */;
+			buildPhases = (
+				7A43F26B1969FF8F000AC8BE /* Sources */,
+				7A43F26C1969FF8F000AC8BE /* Frameworks */,
+				7A43F26D1969FF8F000AC8BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A43F2751969FF8F000AC8BE /* PBXTargetDependency */,
+			);
+			name = Icebreaker2Tests;
+			productName = Icebreaker2Tests;
+			productReference = 7A43F26F1969FF8F000AC8BE /* Icebreaker2Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A43F24C1969FF8F000AC8BE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = ICB;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Icebreaker;
+				TargetAttributes = {
+					7A43F26E1969FF8F000AC8BE = {
+						TestTargetID = 7A43F2531969FF8F000AC8BE;
+					};
+				};
+			};
+			buildConfigurationList = 7A43F24F1969FF8F000AC8BE /* Build configuration list for PBXProject "Icebreaker2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7A43F24B1969FF8F000AC8BE;
+			productRefGroup = 7A43F2551969FF8F000AC8BE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7A43F2531969FF8F000AC8BE /* Icebreaker2 */,
+				7A43F26E1969FF8F000AC8BE /* Icebreaker2Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A43F2521969FF8F000AC8BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A43F2621969FF8F000AC8BE /* InfoPlist.strings in Resources */,
+				7A43F26A1969FF8F000AC8BE /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A43F26D1969FF8F000AC8BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A43F27B1969FF8F000AC8BE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A43F2501969FF8F000AC8BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A43F2641969FF8F000AC8BE /* main.m in Sources */,
+				7A43F2681969FF8F000AC8BE /* ICBAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A43F26B1969FF8F000AC8BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A43F27D1969FF8F000AC8BE /* Icebreaker2Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7A43F2751969FF8F000AC8BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A43F2531969FF8F000AC8BE /* Icebreaker2 */;
+			targetProxy = 7A43F2741969FF8F000AC8BE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7A43F2601969FF8F000AC8BE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A43F2611969FF8F000AC8BE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7A43F2791969FF8F000AC8BE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A43F27A1969FF8F000AC8BE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7A43F27E1969FF8F000AC8BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7A43F27F1969FF8F000AC8BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A43F2811969FF8F000AC8BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Icebreaker2/Icebreaker2-Prefix.pch";
+				INFOPLIST_FILE = "Icebreaker2/Icebreaker2-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7A43F2821969FF8F000AC8BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Icebreaker2/Icebreaker2-Prefix.pch";
+				INFOPLIST_FILE = "Icebreaker2/Icebreaker2-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		7A43F2841969FF8F000AC8BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Icebreaker2.app/Icebreaker2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Icebreaker2/Icebreaker2-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Icebreaker2Tests/Icebreaker2Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		7A43F2851969FF8F000AC8BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Icebreaker2.app/Icebreaker2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Icebreaker2/Icebreaker2-Prefix.pch";
+				INFOPLIST_FILE = "Icebreaker2Tests/Icebreaker2Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A43F24F1969FF8F000AC8BE /* Build configuration list for PBXProject "Icebreaker2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A43F27E1969FF8F000AC8BE /* Debug */,
+				7A43F27F1969FF8F000AC8BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A43F2801969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Icebreaker2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A43F2811969FF8F000AC8BE /* Debug */,
+				7A43F2821969FF8F000AC8BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7A43F2831969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Icebreaker2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A43F2841969FF8F000AC8BE /* Debug */,
+				7A43F2851969FF8F000AC8BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7A43F24C1969FF8F000AC8BE /* Project object */;
+}
