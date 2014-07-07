@@ -1,12 +1,14 @@
 //
 //  ICBAppDelegate.m
-//  Icebreaker2
+//  Icebreaker
 //
-//  Created by Andrew Cedotal on 7/6/14.
+//  Created by Andrew Cedotal on 6/29/14.
 //  Copyright (c) 2014 Icebreaker. All rights reserved.
 //
 
 #import "ICBAppDelegate.h"
+#import "ICBWelcomeViewController.h"
+#import <Parse/Parse.h>
 
 @implementation ICBAppDelegate
 
@@ -14,6 +16,18 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    // ****************************************************************************
+    // Parse initialization
+	[Parse setApplicationId:@"ZdJHjFNeFFfzj8DTzLl03wYGilzJ3coAPx9Ce6zn"
+                  clientKey:@"Q2BIZMavY1iI1gZQHd4KYTJtZ1GFUNFm1A2YcRFS"];
+	// ****************************************************************************
+    // Parse analytics
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    UIViewController *welcomeController = [[ICBWelcomeViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:welcomeController];
+    navController.navigationBarHidden = YES;
+    self.window.rootViewController = navController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
