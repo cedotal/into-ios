@@ -20,6 +20,7 @@
 @property (nonatomic) BOOL chained;
 
 -(void)displayNewInterestReviewViewController;
+-(void)userDidExpressPreference:(BOOL) preference;
 
 @end
 
@@ -49,27 +50,50 @@
 // handle user actions
 -(IBAction)userTappedYes:(id)sender
 {
-    self.interest.preference = YES;
-    NSDictionary *dict = [NSDictionary dictionaryWithObject:self.interest
-                                                     forKey:@"interest"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"nICBuserDidSetPreferenceOnInterest"
-                                                        object:nil
-                                                      userInfo:dict];
-    [self.presentingViewController dismissViewControllerAnimated:YES
-                                                      completion:^{
-                                                          [self displayNewInterestReviewViewController];
-                                                      }];
+    [self userDidExpressPreference:YES];
 }
 
 -(IBAction)userTappedNo:(id)sender
 {
-    self.interest.preference = NO;
-    [self.presentingViewController dismissViewControllerAnimated:YES
-                                                      completion:^{
-                                                          [self displayNewInterestReviewViewController];
-                                                      }];
+    [self userDidExpressPreference:NO];
 }
-     
+
+-(void)userDidExpressPreference:(BOOL) preference
+{
+    // only need to go to network if the user set preference to YES
+    if (preference){
+        PFUser *user = [PFUser currentUser];
+        PFRelation *relation = [user relationForKey:@"interests"];
+        PFObject *pfInterest = self.interest.pfObject;
+        [relation addObject:pfInterest];
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if(!error){
+                self.interest.preference = preference;
+                NSDictionary *dict = [NSDictionary dictionaryWithObject:self.interest
+                                                                 forKey:@"interest"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"nICBuserDidSetPreferenceOnInterest"
+                                                                    object:nil
+                                                                  userInfo:dict];
+            } else {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You're not online!" message:@"You need to be online to edit your interests. Don't worry, you'll see this interest again later." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                [alertView show];
+            }
+            [self.presentingViewController dismissViewControllerAnimated:YES
+                                                          completion:^{
+                                                              [self displayNewInterestReviewViewController];
+                                                          }];
+        
+        }];
+    // if user set preference to NO, nothing needs to be created on server
+    } else {
+        self.interest.preference = preference;
+        [self.presentingViewController dismissViewControllerAnimated:YES
+                                                          completion:^{
+                                                              [self displayNewInterestReviewViewController];
+                                                          }];
+    }
+}
+
 -(IBAction)userTappedOpenUrl:(id)sender
 {
     [[UIApplication sharedApplication] openURL:self.interest.descriptionURL];

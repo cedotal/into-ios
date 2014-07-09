@@ -13,11 +13,13 @@
 
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSURL *descriptionURL;
+@property (nonatomic, readonly) PFObject *pfObject;
 
-// preference must be set at time of review, and is set back to NO when preference is unset
 @property (nonatomic) BOOL preference;
 @property (nonatomic) BOOL reviewed;
 
 -(id)initWithPFObject:(PFObject *) object;
+
+-(BOOL)isEqual:(id)object;
 
 @end

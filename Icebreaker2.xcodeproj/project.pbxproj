@@ -263,6 +263,9 @@
 		7A43F2881969FFB8000AC8BE /* Interest Review */ = {
 			isa = PBXGroup;
 			children = (
+				7A43F29A196A006D000AC8BE /* ICBInterestReviewView.xib */,
+				7A43F29B196A006D000AC8BE /* ICBInterestReviewViewController.h */,
+				7A43F29C196A006D000AC8BE /* ICBInterestReviewViewController.m */,
 			);
 			name = "Interest Review";
 			sourceTree = "<group>";
@@ -277,9 +280,6 @@
 				7A43F2A2196A0088000AC8BE /* ICBInterestsViewController.h */,
 				7A43F2A3196A0088000AC8BE /* ICBInterestsViewController.m */,
 				7A43F2A4196A0088000AC8BE /* ICBInterestsViewHeaderView.xib */,
-				7A43F29A196A006D000AC8BE /* ICBInterestReviewView.xib */,
-				7A43F29B196A006D000AC8BE /* ICBInterestReviewViewController.h */,
-				7A43F29C196A006D000AC8BE /* ICBInterestReviewViewController.m */,
 			);
 			name = "Main Application Views";
 			sourceTree = "<group>";
@@ -602,6 +602,7 @@
 				7A43F2821969FF8F000AC8BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A43F2831969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Icebreaker2Tests" */ = {
 			isa = XCConfigurationList;
@@ -610,6 +611,7 @@
 				7A43F2851969FF8F000AC8BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

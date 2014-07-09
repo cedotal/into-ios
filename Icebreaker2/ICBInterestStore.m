@@ -50,37 +50,80 @@ const NSInteger minimumPreferences = 3;
 
 -(void)fetchInterests
 {
-    PFQuery *query = [PFQuery queryWithClassName:@"Interest"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    // in order to know which interests are preferred, we're going to have to execute
+    // two queries:
+    // 1. a query to get just the interests that the user prefers
+    // 2. a query to get all interests
+    
+    // chain our queries so that the first one calls the second one if successful
+    // and sends the failure notification otherwise. the second one executes our
+    // model changes and sends the success notification if successful and sends
+    // the failure notification otherwise
+    PFUser *user = [PFUser currentUser];
+    PFRelation *relation = [user relationForKey:@"interests"];
+    PFQuery *preferredInterestsQuery = [relation query];
+    [preferredInterestsQuery findObjectsInBackgroundWithBlock:^(NSArray *userPFInterests, NSError *error) {
         if(error){
             [[NSNotificationCenter defaultCenter] postNotificationName:@"nICBfetchInterestsDidFail"
                                                                 object:nil];
         } else {
-            for(PFObject *object in objects){
-                ICBInterest *interest = [[ICBInterest alloc] initWithPFObject: object];
-                [_privateItems addObject: interest];
-            }
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"nICBfetchInterestsDidSucceed"
-                                                                object:nil];
-
+            PFQuery *allInterestsQuery = [PFQuery queryWithClassName:@"Interest"];
+            [allInterestsQuery findObjectsInBackgroundWithBlock:^(NSArray *allPFInterests, NSError *error) {
+                if(error){
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"nICBfetchInterestsDidFail"
+                                                                        object:nil];
+                } else {
+                    [self populateInterestsWithUsersInterests:userPFInterests
+                                              andAllInterests:allPFInterests];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"nICBfetchInterestsDidSucceed"
+                                                                        object:nil];
+                }
+            }];
         }
     }];
 }
 
+-(void)populateInterestsWithUsersInterests:(NSArray *) userPFInterests
+                           andAllInterests:(NSArray *) allPFInterests
+{
+    NSMutableArray *allInterests = [[NSMutableArray alloc] init];
+    for(PFObject *allPFInterest in allPFInterests){
+        ICBInterest *interest = [[ICBInterest alloc] initWithPFObject:allPFInterest];
+        [allInterests addObject:interest];
+    }
+    NSMutableArray *userInterests = [[NSMutableArray alloc] init];
+    for(PFObject *userPFInterest in userPFInterests){
+        ICBInterest *interest = [[ICBInterest alloc] initWithPFObject:userPFInterest];
+        [userInterests addObject:interest];
+    }
+    for(ICBInterest *allInterest in allInterests){
+        if([userInterests containsObject:allInterest]){
+            allInterest.preference = YES;
+        }
+        [_privateItems addObject: allInterest];
+    }
+
+}
+
 -(ICBInterest*)retrieveRandomUnreviewedInterest
 {
+    // count unreviewed interests
     NSIndexSet *unreviewedItemsIndexes = [_privateItems indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return !(((ICBInterest*)obj).reviewed);
     }];
     NSUInteger count = [unreviewedItemsIndexes count];
-    if (count > 0){
-        NSArray *unreviewedItems = [_privateItems objectsAtIndexes:unreviewedItemsIndexes];
-        NSUInteger index = arc4random_uniform((unsigned int)count);
-        ICBInterest *randomUnreviewedInterest = unreviewedItems[index];
-        return randomUnreviewedInterest;
-    } else {
-        return nil;
-    };
+    // if none are left, reset all non-preferred interests to be non-reviewed
+    if (count == 0){
+        for(ICBInterest *item in _privateItems){
+            if(!item.preference){
+                item.reviewed = NO;
+            }
+        }
+    }
+    NSArray *unreviewedItems = [_privateItems objectsAtIndexes:unreviewedItemsIndexes];
+    NSUInteger index = arc4random_uniform((unsigned int)count);
+    ICBInterest *randomUnreviewedInterest = unreviewedItems[index];
+    return randomUnreviewedInterest;
 }
 
 -(NSArray *)allPreferredInterests

@@ -10,20 +10,23 @@
 
 @implementation ICBInterest
 
--(id)initWithPFObject:(PFObject *) object
+-(id)initWithPFObject:(PFObject *) pfObject
 {
-    NSString *name = [object objectForKey:@"name"];
-    NSURL *descriptionURL = [NSURL URLWithString:[object objectForKey:@"descriptionUrl"]];
-    return [self initWithName:name andDescriptionURL:descriptionURL];
+    NSString *name = [pfObject objectForKey:@"name"];
+    NSURL *descriptionURL = [NSURL URLWithString:[pfObject objectForKey:@"descriptionUrl"]];
+    return [self initWithName:name andDescriptionURL:descriptionURL andPFObject:pfObject];
 }
 
--(id)initWithName:(NSString *)name andDescriptionURL:(NSURL *)descriptionURL
+-(id)initWithName:(NSString *)name
+andDescriptionURL:(NSURL *)descriptionURL
+      andPFObject:(PFObject *)pfObject
 {
     // call the superclass' designated initializer
     self = [super init];
     if (self){
         _name = name;
         _descriptionURL = descriptionURL;
+        _pfObject = pfObject;
         _reviewed = NO;
         // default preference is NO; most people don't like most things
         _preference = NO;
@@ -40,13 +43,19 @@
     _reviewed = YES;
 }
 
--(void)setReviewed:(BOOL)reviewed
+-(BOOL)isEqual:(id)object
 {
-    _reviewed = reviewed;
-    if(!reviewed){
-        // back to default
-        _preference = NO;
-    }
+    // first check if object is this class or a subclass to avoid breaking when
+    // we send a message to objectId
+    if(![object isKindOfClass:[ICBInterest class]]){
+        return false;
+    };
+    // use contained Parse object to determine equality
+    NSString *ownObjectId = self.pfObject.objectId;
+    NSString *otherObjectId = [[(ICBInterest *)object valueForKey:@"pfObject"] valueForKey:@"objectId"];
+    BOOL equals = [ownObjectId isEqualToString: otherObjectId];
+    return (equals);
 }
+
 
 @end

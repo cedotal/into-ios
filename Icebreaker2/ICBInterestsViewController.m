@@ -106,17 +106,21 @@
 
 -(void)addRowForInterest:(ICBInterest *)interest
 {
+    // it's possible that the user marked interest.preference as NO, in which
+    // case we don't need to add a new row to the table
+    if(interest.preference){
     // make a new index path for the 0th section, last row
-    NSInteger lastRow = [[[ICBInterestStore sharedStore] allPreferredInterests]indexOfObject:interest];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        NSInteger lastRow = [[[ICBInterestStore sharedStore] allPreferredInterests]indexOfObject:interest];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *interests = [[ICBInterestStore sharedStore] allPreferredInterests];
     ICBInterest *interest = interests[indexPath.row];
-    interest.reviewed = NO;
+    interest.preference = NO;
     // also remove that row from the table view with an animation
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
 }
