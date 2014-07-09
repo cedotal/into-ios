@@ -120,9 +120,22 @@
 {
     NSArray *interests = [[ICBInterestStore sharedStore] allPreferredInterests];
     ICBInterest *interest = interests[indexPath.row];
-    interest.preference = NO;
-    // also remove that row from the table view with an animation
-    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+    PFUser *user = [PFUser currentUser];
+    PFRelation *relation = [user relationForKey:@"interests"];
+    [relation removeObject:interest.pfObject];
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(!error){
+            // make local change
+            interest.preference = NO;
+            // also remove that row from the table view with an animation
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You're not online!" message:@"You need to be online to edit your interests. Don't worry, you'll see this interest again later." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [alertView show];
+        }
+    }];
+    
+    
 }
 
 @end

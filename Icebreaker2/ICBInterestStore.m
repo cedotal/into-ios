@@ -109,7 +109,7 @@ const NSInteger minimumPreferences = 3;
 {
     // count unreviewed interests
     NSIndexSet *unreviewedItemsIndexes = [_privateItems indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return !(((ICBInterest*)obj).reviewed);
+        return !(((ICBInterest *)obj).reviewed);
     }];
     NSUInteger count = [unreviewedItemsIndexes count];
     // if none are left, reset all non-preferred interests to be non-reviewed
@@ -119,10 +119,21 @@ const NSInteger minimumPreferences = 3;
                 item.reviewed = NO;
             }
         }
+        // reset these vars because their underlying data has changed
+        unreviewedItemsIndexes = [_privateItems indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return !(((ICBInterest *)obj).reviewed);
+        }];
+        count = [unreviewedItemsIndexes count];
     }
-    NSArray *unreviewedItems = [_privateItems objectsAtIndexes:unreviewedItemsIndexes];
-    NSUInteger index = arc4random_uniform((unsigned int)count);
-    ICBInterest *randomUnreviewedInterest = unreviewedItems[index];
+    ICBInterest *randomUnreviewedInterest;
+    if(count > 0){
+        NSArray *unreviewedItems = [_privateItems objectsAtIndexes:unreviewedItemsIndexes];
+        NSUInteger index = arc4random_uniform((unsigned int)count);
+        randomUnreviewedInterest = unreviewedItems[index];
+    } else {
+        randomUnreviewedInterest = nil;
+    }
+    
     return randomUnreviewedInterest;
 }
 
