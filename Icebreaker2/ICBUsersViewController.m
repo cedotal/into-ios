@@ -24,6 +24,13 @@
     return self;
 }
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+}
+
+
 // override the default no-op to get objects from Parse
 -(PFQuery *)queryForTable
 {
@@ -40,18 +47,27 @@
         orQuery = [PFQuery orQueryWithSubqueries: [interestQueries copy]];
     } else {
         // if you don't have any interests, you can't have any matches
+        // this is a hack around a parse limitation
         orQuery = [PFQuery queryWithClassName:@"_User"];
         [orQuery whereKeyExists: @"dummy"];
     }
     // the user shouldn't see themselves
     [orQuery whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
+    // we need each user's full set of interest objects to display the cells properly
+    // TODO
     return orQuery;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    // main label is the user's username
     cell.textLabel.text = [object objectForKey:@"username"];
+    // sublabel lists the user's interests, prioritizing those that are in common with the current user
+    NSMutableString *interestsString = [[NSMutableString alloc] init];
+    [interestsString appendString:@"Into:"];
+    
+    cell.detailTextLabel.text = interestsString;
     return cell;
 }
 
