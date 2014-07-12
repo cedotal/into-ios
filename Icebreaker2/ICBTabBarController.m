@@ -7,7 +7,7 @@
 //
 
 #import "ICBTabBarController.h"
-#import "ICBMatchesViewController.h"
+#import "ICBUsersViewController.h"
 #import "ICBInterestsViewController.h"
 #import "ICBInterestReviewViewController.h"
 #import "ICBInterestStore.h"
@@ -25,10 +25,10 @@
 -(instancetype)init{
     self = [super init];
     if (self){
-        ICBMatchesViewController *mvc = [[ICBMatchesViewController alloc] init];
+        ICBUsersViewController *uvc = [[ICBUsersViewController alloc] init];
         ICBInterestsViewController *ivc = [[ICBInterestsViewController alloc] init];
         self.interestsViewController = ivc;
-        self.viewControllers = @[mvc, ivc];
+        self.viewControllers = @[uvc, ivc];
     }
     return self;
 }

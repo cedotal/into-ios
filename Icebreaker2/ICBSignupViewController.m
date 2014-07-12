@@ -168,6 +168,10 @@
 	PFUser *user = [PFUser user];
 	user.username = username;
 	user.password = password;
+    PFACL *readOnlyACL = [PFACL ACL];
+	[readOnlyACL setPublicReadAccess:YES];
+	[readOnlyACL setPublicWriteAccess:NO];
+	[user setACL:readOnlyACL];
 	[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 		if (error) {
 			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[[error userInfo] objectForKey:@"error"] message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];

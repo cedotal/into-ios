@@ -31,7 +31,7 @@
 		7A43F2A6196A0088000AC8BE /* ICBInterestsViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A43F2A4196A0088000AC8BE /* ICBInterestsViewHeaderView.xib */; };
 		7A43F2AA196A0099000AC8BE /* ICBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43F2A8196A0099000AC8BE /* ICBLoginViewController.m */; };
 		7A43F2AB196A0099000AC8BE /* ICBLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A43F2A9196A0099000AC8BE /* ICBLoginViewController.xib */; };
-		7A43F2AF196A00BD000AC8BE /* ICBMatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43F2AE196A00BD000AC8BE /* ICBMatchesViewController.m */; };
+		7A43F2AF196A00BD000AC8BE /* ICBUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43F2AE196A00BD000AC8BE /* ICBUsersViewController.m */; };
 		7A43F2B3196A00C9000AC8BE /* ICBSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43F2B1196A00C9000AC8BE /* ICBSignupViewController.m */; };
 		7A43F2B4196A00C9000AC8BE /* ICBSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A43F2B2196A00C9000AC8BE /* ICBSignupViewController.xib */; };
 		7A43F2B6196A00D3000AC8BE /* ICBWelcomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A43F2B5196A00D3000AC8BE /* ICBWelcomeView.xib */; };
@@ -94,8 +94,8 @@
 		7A43F2A8196A0099000AC8BE /* ICBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICBLoginViewController.m; sourceTree = "<group>"; };
 		7A43F2A9196A0099000AC8BE /* ICBLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICBLoginViewController.xib; sourceTree = "<group>"; };
 		7A43F2AC196A00AD000AC8BE /* ICBTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICBTabBarController.h; sourceTree = "<group>"; };
-		7A43F2AD196A00BD000AC8BE /* ICBMatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICBMatchesViewController.h; sourceTree = "<group>"; };
-		7A43F2AE196A00BD000AC8BE /* ICBMatchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICBMatchesViewController.m; sourceTree = "<group>"; };
+		7A43F2AD196A00BD000AC8BE /* ICBUsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICBUsersViewController.h; sourceTree = "<group>"; };
+		7A43F2AE196A00BD000AC8BE /* ICBUsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICBUsersViewController.m; sourceTree = "<group>"; };
 		7A43F2B0196A00C9000AC8BE /* ICBSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICBSignupViewController.h; sourceTree = "<group>"; };
 		7A43F2B1196A00C9000AC8BE /* ICBSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICBSignupViewController.m; sourceTree = "<group>"; };
 		7A43F2B2196A00C9000AC8BE /* ICBSignupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICBSignupViewController.xib; sourceTree = "<group>"; };
@@ -275,8 +275,8 @@
 			children = (
 				7A43F2AC196A00AD000AC8BE /* ICBTabBarController.h */,
 				7A43F2B7196A00E6000AC8BE /* ICBTabBarController.m */,
-				7A43F2AD196A00BD000AC8BE /* ICBMatchesViewController.h */,
-				7A43F2AE196A00BD000AC8BE /* ICBMatchesViewController.m */,
+				7A43F2AD196A00BD000AC8BE /* ICBUsersViewController.h */,
+				7A43F2AE196A00BD000AC8BE /* ICBUsersViewController.m */,
 				7A43F2A2196A0088000AC8BE /* ICBInterestsViewController.h */,
 				7A43F2A3196A0088000AC8BE /* ICBInterestsViewController.m */,
 				7A43F2A4196A0088000AC8BE /* ICBInterestsViewHeaderView.xib */,
@@ -387,7 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A43F2641969FF8F000AC8BE /* main.m in Sources */,
-				7A43F2AF196A00BD000AC8BE /* ICBMatchesViewController.m in Sources */,
+				7A43F2AF196A00BD000AC8BE /* ICBUsersViewController.m in Sources */,
 				7A43F29E196A006D000AC8BE /* ICBInterestReviewViewController.m in Sources */,
 				7A43F2A1196A0078000AC8BE /* ICBInterestStore.m in Sources */,
 				7A43F296196A0053000AC8BE /* ICBConnectingViewController.m in Sources */,

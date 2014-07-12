@@ -1,5 +1,5 @@
 //
-//  ICBMatchesViewController.h
+//  ICBUsersViewController
 //  Icebreaker
 //
 //  Created by Andrew Cedotal on 7/6/14.
@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
-@interface ICBMatchesViewController : UITableViewController
+@interface ICBUsersViewController : PFQueryTableViewController
 
 @end
