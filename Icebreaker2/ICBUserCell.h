@@ -10,6 +10,8 @@
 
 @interface ICBUserCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *interestsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *interestLabel1;
+@property (weak, nonatomic) IBOutlet UILabel *interestLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *interestLabel3;
 
 @end
