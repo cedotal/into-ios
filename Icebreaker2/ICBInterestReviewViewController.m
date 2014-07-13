@@ -63,9 +63,8 @@
     // only need to go to network if the user set preference to YES
     if (preference){
         PFUser *user = [PFUser currentUser];
-        PFRelation *relation = [user relationForKey:@"interests"];
         PFObject *pfInterest = self.interest.pfObject;
-        [relation addObject:pfInterest];
+        [user addObject:pfInterest forKey:@"interests"];
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if(!error){
                 self.interest.preference = preference;
@@ -86,7 +85,7 @@
         }];
     // if user set preference to NO, nothing needs to be created on server
     } else {
-        self.interest.preference = preference;
+        self.interest.reviewed = YES;
         [self.presentingViewController dismissViewControllerAnimated:YES
                                                           completion:^{
                                                               [self displayNewInterestReviewViewController];
