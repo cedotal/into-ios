@@ -8,6 +8,7 @@
 
 #import "ICBUsersViewController.h"
 #import "ICBInterestStore.h"
+#import "ICBUserCell.h"
 
 @implementation ICBUsersViewController
 
@@ -27,7 +28,12 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+    
+    // load the nib file
+    UINib *nib = [UINib nibWithNibName:@"ICBUserCell" bundle:nil];
+    
+    // register the nib, which contains a cell
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"ICBUserCell"];
 }
 
 
@@ -54,20 +60,24 @@
     // the user shouldn't see themselves
     [orQuery whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
     // we need each user's full set of interest objects to display the cells properly
-    // TODO
+    [orQuery includeKey:@"interests"];
     return orQuery;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)matchedUser
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    ICBUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ICBUserCell" forIndexPath:indexPath];
     // main label is the user's username
-    cell.textLabel.text = [object objectForKey:@"username"];
+    cell.usernameLabel.text = [matchedUser objectForKey:@"username"];
     // sublabel lists the user's interests, prioritizing those that are in common with the current user
     NSMutableString *interestsString = [[NSMutableString alloc] init];
     [interestsString appendString:@"Into:"];
-    
-    cell.detailTextLabel.text = interestsString;
+    NSArray *matchedUserInterests = [matchedUser objectForKey:@"interests"];
+    for (PFObject *interest in matchedUserInterests){
+        NSString *interestName = [interest objectForKey:@"name"];
+        [interestsString appendString:interestName];
+    }
+    cell.interestsLabel.text = interestsString;
     return cell;
 }
 
