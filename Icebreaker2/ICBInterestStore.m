@@ -51,22 +51,25 @@ const NSInteger minimumPreferences = 3;
 -(void)fetchInterests
 {
     // in order to know which interests are preferred, we're going to have to execute
-    // two queries:
-    // 1. a query to get just the interests that the user prefers
-    // 2. a query to get all interests
+    // multiple queries:
+    // 1 a query to fill out the interests array on the current user
+    // 2. a query to get all interests currently in existence
     
-    // chain our queries so that the first one calls the second one if successful
-    // and sends the failure notification otherwise. the second one executes our
-    // model changes and sends the success notification if successful and sends
+    // chain our queries so that the all but the last calls the next one if successful
+    // and sends the failure notification otherwise. the last one executes our
+    // model changes and sends the success notification if successful; it sends
     // the failure notification otherwise
     PFUser *user = [PFUser currentUser];
-    PFRelation *relation = [user relationForKey:@"interests"];
-    PFQuery *preferredInterestsQuery = [relation query];
-    [preferredInterestsQuery findObjectsInBackgroundWithBlock:^(NSArray *userPFInterests, NSError *error) {
+    PFQuery *userQuery = [PFUser query];
+    [userQuery includeKey:@"interests"];
+    NSString *username = [user objectForKey:@"username"];
+    [userQuery whereKey:@"username" equalTo:username];
+    [userQuery getFirstObjectInBackgroundWithBlock:^(PFObject *userObject, NSError *error) {
         if(error){
             [[NSNotificationCenter defaultCenter] postNotificationName:@"nICBfetchInterestsDidFail"
                                                                 object:nil];
         } else {
+            NSArray *userPFInterests = [userObject objectForKey:@"interests"];
             PFQuery *allInterestsQuery = [PFQuery queryWithClassName:@"Interest"];
             [allInterestsQuery findObjectsInBackgroundWithBlock:^(NSArray *allPFInterests, NSError *error) {
                 if(error){

@@ -121,8 +121,7 @@
     NSArray *interests = [[ICBInterestStore sharedStore] allPreferredInterests];
     ICBInterest *interest = interests[indexPath.row];
     PFUser *user = [PFUser currentUser];
-    PFRelation *relation = [user relationForKey:@"interests"];
-    [relation removeObject:interest.pfObject];
+    [user removeObject:interest.pfObject forKey:@"interests"];
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if(!error){
             // make local change
