@@ -9,6 +9,7 @@
 #import "ICBUsersViewController.h"
 #import "ICBInterestStore.h"
 #import "ICBUserCell.h"
+#import "ICBMessagesViewController.h"
 
 @implementation ICBUsersViewController
 
@@ -36,6 +37,11 @@
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ICBUserCell"];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
 
 // override the default no-op to get objects from Parse
 -(PFQuery *)queryForTable
@@ -114,6 +120,13 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 102;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UINavigationController *navController = self.navigationController;
+    ICBMessagesViewController *mvc = [[ICBMessagesViewController alloc] init];
+    [navController pushViewController:mvc animated:YES];
 }
 
 @end
