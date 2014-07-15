@@ -12,6 +12,10 @@
 
 @property (nonatomic, strong) PFObject *matchedUser;
 
+@property (nonatomic, strong) UIView *footerView;
+
+@property (weak, nonatomic) IBOutlet UITextField *composeMessageField;
+
 @end
 
 @implementation ICBMessagesViewController
@@ -46,12 +50,35 @@
     // register the nib, which contains a cell
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:@"UITableViewCell"];
+    
+    UIView *footerView = [self footerView];
+    [self.tableView setTableFooterView:footerView];
+}
+
+-(UIView *)footerView
+{
+    if(!_footerView){
+        NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ICBMessagesViewFooterView" owner:self options:nil];
+        _footerView = [nibObjects firstObject];
+    }
+    return _footerView;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [super viewWillAppear:animated];
+}
+
+// override the default no-op to get objects from Parse
+-(PFQuery *)queryForTable
+{
+    PFQuery *messagesQuery = [PFQuery queryWithClassName:@"Message"];
+    PFObject *fromUser = [PFUser currentUser];
+    [messagesQuery whereKey:@"fromUser" equalTo: fromUser];
+    PFObject *toUser = self.matchedUser;
+    [messagesQuery whereKey:@"toUser" equalTo: toUser];
+    return messagesQuery;
 }
 
 // UITableViewController methods
@@ -61,6 +88,27 @@
                                                             forIndexPath:indexPath];
     cell.textLabel.text = [pfMessage objectForKey:@"content"];
     return cell;
+}
+
+- (IBAction)sendMessage:(id)sender {
+    PFObject *message = [PFObject objectWithClassName:@"Message"];
+    NSString *composedMessage = self.composeMessageField.text;
+    [message setObject:composedMessage forKey:@"content"];
+    PFObject *fromUser = [PFUser currentUser];
+    [message setObject:fromUser forKey:@"fromUser"];
+    PFObject *toUser = self.matchedUser;
+    [message setObject:toUser forKey:@"toUser"];
+    [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(error){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You're not online!" message:@"You need to be online to send messages." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [alertView show];
+        } else {
+            // wipe the contents of the text field
+            self.composeMessageField.text = @"";
+            // hit the server to get this message and any new messages
+            [self loadObjects];
+        }
+    }];
 }
 
 @end

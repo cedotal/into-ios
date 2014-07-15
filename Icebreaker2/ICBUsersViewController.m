@@ -124,8 +124,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    PFObject *matchedUser = [self objectAtIndexPath:indexPath];
     UINavigationController *navController = self.navigationController;
-    ICBMessagesViewController *mvc = [[ICBMessagesViewController alloc] init];
+    ICBMessagesViewController *mvc = [[ICBMessagesViewController alloc] initWithUser:matchedUser];
     [navController pushViewController:mvc animated:YES];
 }
 
