@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@interface ICBMessagesViewController : PFQueryTableViewController
+@interface ICBMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UIView *fixedTableFooterView;
 
 -(instancetype)initWithUser:(PFObject *) matchedUser;
 
