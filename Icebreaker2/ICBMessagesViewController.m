@@ -133,7 +133,7 @@
     [subQueries addObject:toUserMessagesQuery];
     PFQuery *messagesQuery = [PFQuery orQueryWithSubqueries:[subQueries copy]];
     // need them ordered
-    [messagesQuery orderByDescending:@"createdAt"];
+    [messagesQuery orderByAscending:@"createdAt"];
     // cap number returned
     messagesQuery.limit = 100;
     return messagesQuery;
