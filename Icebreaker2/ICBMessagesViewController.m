@@ -7,12 +7,16 @@
 //
 
 #import "ICBMessagesViewController.h"
+#import "UIView+MWKeyboardAnimation.h"
+
 
 @interface ICBMessagesViewController()
 
 @property (nonatomic, strong) PFObject *matchedUser;
 
-@property (nonatomic, strong) UIView *footerView;
+// pointers to important subviews
+@property (nonatomic, strong) UITableView *messagesView;
+@property (nonatomic, strong) UIView *sendMessageView;
 
 @property (nonatomic, weak) IBOutlet UITextField *composeMessageField;
 
@@ -50,29 +54,45 @@
     return self;
 }
 
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
-    CGFloat fixedFooterHeight = 200.0;
+    // in order to have all content scroll up when the keyboard appears, we
+    // need to set up the following hierarchy of views:
+    // * the controller's normal view, which has as subviews
+    // ** a messagesView for the messages, and
+    // ** a textEditView for the text editing textField and button
+    
+    // have to set frame manually or subview won't know to capture and pass
+    // on touch events
+    
+    CGFloat textEditViewHeight = 80.0;
     
     // Initialize the UITableView
-    CGRect tableViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - fixedFooterHeight);
-    self.tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
-    [self.tableView setDataSource:self];
-    [self.tableView setDelegate:self];
+    CGRect messagesViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight);
+    self.messagesView = [[UITableView alloc] initWithFrame:messagesViewFrame style:UITableViewStylePlain];
+    [self.messagesView setDataSource:self];
+    [self.messagesView setDelegate:self];
     
     // register the nib, which contains a cell
-    [self.tableView registerClass:[UITableViewCell class]
+    [self.messagesView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:@"UITableViewCell"];
     
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.messagesView];
     
-    // Initialize your Footer
-    CGRect footerFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMaxY(self.view.bounds) - fixedFooterHeight, CGRectGetWidth(self.view.bounds), fixedFooterHeight);
-    self.fixedTableFooterView = [self footerView];
-    self.fixedTableFooterView.frame = footerFrame;
-    [self.view addSubview:self.fixedTableFooterView];
+    // Initialize the sendMessageView
+    CGRect sendMessageViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMaxY(self.view.bounds) - textEditViewHeight, CGRectGetWidth(self.view.bounds), textEditViewHeight);
+    self.sendMessageView = [self createSendMessageView];
+    self.sendMessageView.frame = sendMessageViewFrame;
+    [self.view addSubview:self.sendMessageView];
+    
+    // set up notifications for keyboard events
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
     
     // get messages for the first time
     [self fetchMessages];
@@ -80,8 +100,6 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    [self setTableView:nil];
-    [self setFixedTableFooterView:nil];
     self.fetchMessagesTimer = nil;
 }
 
@@ -92,13 +110,13 @@
     [super viewWillAppear:animated];
 }
 
--(UIView *)footerView
+-(UIView *)createSendMessageView
 {
-    if(!_footerView){
-        NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ICBMessagesViewFooterView" owner:self options:nil];
-        _footerView = [nibObjects firstObject];
+    if(!_sendMessageView){
+        NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ICBMessagesViewSendMessageView" owner:self options:nil];
+        _sendMessageView = [nibObjects firstObject];
     }
-    return _footerView;
+    return _sendMessageView;
 }
 
 -(void)fetchMessages
@@ -109,7 +127,7 @@
             // update local data for messages
             self.messages = [NSMutableArray arrayWithArray:objects];
             // reload table
-            [self.tableView reloadData];
+            [self.messagesView reloadData];
         }
         // if error, do nothing
     }];
@@ -172,8 +190,40 @@
             // add to messages property
             [self.messages addObject:message];
             // re-render table
-            [self.tableView reloadData];
+            [self.messagesView reloadData];
         }
+    }];
+}
+
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    [UIView animateWithKeyboardNotification:notification animations:^(CGRect keyboardFrame) {
+        // current keyboard attributes
+        int keyboardHeight = CGRectGetHeight(keyboardFrame);
+        
+        // current controller.view attributes
+        CGRect controllerViewFrame = self.view.frame;
+        int controllerViewX = controllerViewFrame.origin.x;
+        int controllerViewY = controllerViewFrame.origin.y;
+        int controllerViewWidth = controllerViewFrame.size.width;
+        int controllerViewHeight = controllerViewFrame.size.height;
+        
+        // current sendMessageView attributes
+        CGRect sendMessageViewFrame = self.sendMessageView.frame;
+        int sendMessageViewX = sendMessageViewFrame.origin.x;
+        int sendMessageViewWidth = sendMessageViewFrame.size.width;
+        int sendMessageViewHeight = sendMessageViewFrame.size.height;
+        
+        // resize the messagesView to allow the sendMessageView to show above
+        // the keyboard
+        int newMessagesViewHeight = controllerViewHeight - keyboardHeight - sendMessageViewHeight;
+        CGRect newMessagesViewFrame = CGRectMake(controllerViewX, controllerViewY, controllerViewWidth, newMessagesViewHeight);
+        self.messagesView.frame = newMessagesViewFrame;
+        
+        // move the sendMessagesView to immediately below the new messagesView
+        int newSendMessageViewY = newMessagesViewHeight;
+        CGRect newSendMessageViewFrame = CGRectMake(sendMessageViewX, newSendMessageViewY, sendMessageViewWidth, sendMessageViewHeight);
+        self.sendMessageView.frame = newSendMessageViewFrame;
     }];
 }
 

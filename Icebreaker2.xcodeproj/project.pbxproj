@@ -47,7 +47,8 @@
 		7A43F2CA196A0169000AC8BE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2C9196A0169000AC8BE /* SystemConfiguration.framework */; };
 		7AA6A4431973530E00898C3D /* ICBMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA6A4421973530E00898C3D /* ICBMessagesViewController.m */; };
 		7AA6A4451973577600898C3D /* ICBMessagesViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA6A4441973577600898C3D /* ICBMessagesViewHeaderView.xib */; };
-		7AA6A4471973578900898C3D /* ICBMessagesViewFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA6A4461973578900898C3D /* ICBMessagesViewFooterView.xib */; };
+		7AA6A4471973578900898C3D /* ICBMessagesViewSendMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA6A4461973578900898C3D /* ICBMessagesViewSendMessageView.xib */; };
+		7AA6A453197975B000898C3D /* UIView+MWKeyboardAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA6A452197975B000898C3D /* UIView+MWKeyboardAnimation.m */; };
 		7AA725961972F76100A11EEB /* ICBUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA725951972F76100A11EEB /* ICBUserCell.m */; };
 		7AA725981972F78E00A11EEB /* ICBUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA725971972F78E00A11EEB /* ICBUserCell.xib */; };
 /* End PBXBuildFile section */
@@ -118,7 +119,9 @@
 		7AA6A4411973530E00898C3D /* ICBMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICBMessagesViewController.h; sourceTree = "<group>"; };
 		7AA6A4421973530E00898C3D /* ICBMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICBMessagesViewController.m; sourceTree = "<group>"; };
 		7AA6A4441973577600898C3D /* ICBMessagesViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICBMessagesViewHeaderView.xib; sourceTree = "<group>"; };
-		7AA6A4461973578900898C3D /* ICBMessagesViewFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICBMessagesViewFooterView.xib; sourceTree = "<group>"; };
+		7AA6A4461973578900898C3D /* ICBMessagesViewSendMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICBMessagesViewSendMessageView.xib; sourceTree = "<group>"; };
+		7AA6A451197975B000898C3D /* UIView+MWKeyboardAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MWKeyboardAnimation.h"; sourceTree = "<group>"; };
+		7AA6A452197975B000898C3D /* UIView+MWKeyboardAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MWKeyboardAnimation.m"; sourceTree = "<group>"; };
 		7AA725941972F76100A11EEB /* ICBUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICBUserCell.h; sourceTree = "<group>"; };
 		7AA725951972F76100A11EEB /* ICBUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICBUserCell.m; sourceTree = "<group>"; };
 		7AA725971972F78E00A11EEB /* ICBUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICBUserCell.xib; sourceTree = "<group>"; };
@@ -207,6 +210,7 @@
 				7A43F2861969FF9F000AC8BE /* Login and Signup */,
 				7A43F2891969FFC2000AC8BE /* Main Application Views */,
 				7A43F2881969FFB8000AC8BE /* Interest Review */,
+				7AA6A44D19781E7600898C3D /* Utility */,
 				7A43F2691969FF8F000AC8BE /* Images.xcassets */,
 				7A43F25E1969FF8F000AC8BE /* Supporting Files */,
 			);
@@ -295,12 +299,21 @@
 				7AA6A4411973530E00898C3D /* ICBMessagesViewController.h */,
 				7AA6A4421973530E00898C3D /* ICBMessagesViewController.m */,
 				7AA6A4441973577600898C3D /* ICBMessagesViewHeaderView.xib */,
-				7AA6A4461973578900898C3D /* ICBMessagesViewFooterView.xib */,
+				7AA6A4461973578900898C3D /* ICBMessagesViewSendMessageView.xib */,
 				7A43F2A2196A0088000AC8BE /* ICBInterestsViewController.h */,
 				7A43F2A3196A0088000AC8BE /* ICBInterestsViewController.m */,
 				7A43F2A4196A0088000AC8BE /* ICBInterestsViewHeaderView.xib */,
 			);
 			name = "Main Application Views";
+			sourceTree = "<group>";
+		};
+		7AA6A44D19781E7600898C3D /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				7AA6A451197975B000898C3D /* UIView+MWKeyboardAnimation.h */,
+				7AA6A452197975B000898C3D /* UIView+MWKeyboardAnimation.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -383,7 +396,7 @@
 				7A43F2B4196A00C9000AC8BE /* ICBSignupViewController.xib in Resources */,
 				7A43F2621969FF8F000AC8BE /* InfoPlist.strings in Resources */,
 				7A43F2AB196A0099000AC8BE /* ICBLoginViewController.xib in Resources */,
-				7AA6A4471973578900898C3D /* ICBMessagesViewFooterView.xib in Resources */,
+				7AA6A4471973578900898C3D /* ICBMessagesViewSendMessageView.xib in Resources */,
 				7AA725981972F78E00A11EEB /* ICBUserCell.xib in Resources */,
 				7AA6A4451973577600898C3D /* ICBMessagesViewHeaderView.xib in Resources */,
 				7A43F26A1969FF8F000AC8BE /* Images.xcassets in Resources */,
@@ -411,6 +424,7 @@
 				7A43F2641969FF8F000AC8BE /* main.m in Sources */,
 				7A43F2AF196A00BD000AC8BE /* ICBUsersViewController.m in Sources */,
 				7A43F29E196A006D000AC8BE /* ICBInterestReviewViewController.m in Sources */,
+				7AA6A453197975B000898C3D /* UIView+MWKeyboardAnimation.m in Sources */,
 				7AA725961972F76100A11EEB /* ICBUserCell.m in Sources */,
 				7A43F2A1196A0078000AC8BE /* ICBInterestStore.m in Sources */,
 				7A43F296196A0053000AC8BE /* ICBConnectingViewController.m in Sources */,
