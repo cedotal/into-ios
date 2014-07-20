@@ -206,6 +206,13 @@
 
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    // determine if user is scrolled to bottom
+    NSArray *visiblePaths = [self.messagesView indexPathsForVisibleRows];
+    NSIndexPath *lastIndex = [visiblePaths lastObject];
+    BOOL messagesViewIsScrolledToBottom = (lastIndex.row == ([self.messages count] - 1));
+    
+    // (since we changed the frame)
+    // handle necessary animations to accomodate keyboard on screen
     [UIView animateWithKeyboardNotification:notification animations:^(CGRect keyboardFrame) {
         // current keyboard attributes
         int keyboardHeight = CGRectGetHeight(keyboardFrame);
@@ -234,6 +241,11 @@
         CGRect newSendMessageViewFrame = CGRectMake(sendMessageViewX, newSendMessageViewY, sendMessageViewWidth, sendMessageViewHeight);
         self.sendMessageView.frame = newSendMessageViewFrame;
     }];
+    
+    // if necessary, scroll messageView to bottom now that animations are done
+    if(messagesViewIsScrolledToBottom){
+        [self scrollMessagesViewToBottom];
+    }
 }
 
 -(void)scrollMessagesViewToBottom
