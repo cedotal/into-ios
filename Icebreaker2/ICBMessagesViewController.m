@@ -68,7 +68,7 @@
     // have to set frame manually or subview won't know to capture and pass
     // on touch events
     
-    CGFloat textEditViewHeight = 80.0;
+    CGFloat textEditViewHeight = 75.0;
     
     // Initialize the UITableView
     CGRect messagesViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight);
@@ -121,6 +121,9 @@
 
 -(void)fetchMessages
 {
+    // only need to scroll to bottom the first time we fetch messages
+    static BOOL firstFetch = TRUE;
+    
     PFQuery *query = [self queryForTable];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error){
@@ -128,6 +131,10 @@
             self.messages = [NSMutableArray arrayWithArray:objects];
             // reload table
             [self.messagesView reloadData];
+            if(firstFetch){
+                [self scrollMessagesViewToBottom];
+                firstFetch = !firstFetch;
+            }
         }
         // if error, do nothing
     }];
@@ -191,6 +198,8 @@
             [self.messages addObject:message];
             // re-render table
             [self.messagesView reloadData];
+            // scroll table to bottom to show inputted message
+            [self scrollMessagesViewToBottom];
         }
     }];
 }
@@ -225,6 +234,15 @@
         CGRect newSendMessageViewFrame = CGRectMake(sendMessageViewX, newSendMessageViewY, sendMessageViewWidth, sendMessageViewHeight);
         self.sendMessageView.frame = newSendMessageViewFrame;
     }];
+}
+
+-(void)scrollMessagesViewToBottom
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:([self.messages count] - 1)
+                                                inSection:0];
+    [self.messagesView scrollToRowAtIndexPath:indexPath
+                             atScrollPosition:UITableViewScrollPositionBottom
+                                     animated:YES];
 }
 
 @end
