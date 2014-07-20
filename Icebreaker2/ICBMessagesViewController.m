@@ -161,6 +161,8 @@
     [messagesQuery orderByAscending:@"createdAt"];
     // cap number returned
     messagesQuery.limit = 100;
+    // we need the sending user to properly display the message
+    [messagesQuery includeKey:@"fromUser"];
     return messagesQuery;
 }
 
@@ -170,7 +172,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"
                                                             forIndexPath:indexPath];
     PFObject *message = self.messages[indexPath.row];
-    cell.textLabel.text = [message objectForKey:@"content"];
+    NSMutableString *messageText = [[NSMutableString alloc] init];
+    // add sending user
+    PFObject *fromUser = [message objectForKey:@"fromUser"];
+    NSString *fromUserUsername = [fromUser objectForKey:@"username"];
+    [messageText appendString:fromUserUsername];
+    // add separator
+    [messageText appendString:@": "];
+    // add message content
+    [messageText appendString:[message objectForKey:@"content"]];
+    cell.textLabel.text = messageText;
     return cell;
 }
 
