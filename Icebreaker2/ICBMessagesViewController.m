@@ -261,11 +261,16 @@
 
 -(void)scrollMessagesViewToBottom
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:([self.messages count] - 1)
-                                                inSection:0];
-    [self.messagesView scrollToRowAtIndexPath:indexPath
-                             atScrollPosition:UITableViewScrollPositionBottom
-                                     animated:YES];
+    // handle the case where we have no messages, since we can't tell the table to scroll
+    // to a negatively-indexed cell
+    long targetRow = ([self.messages count] - 1);
+    if (targetRow > 0){
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:targetRow
+                                                    inSection:0];
+        [self.messagesView scrollToRowAtIndexPath:indexPath
+                                 atScrollPosition:UITableViewScrollPositionBottom
+                                         animated:YES];
+    }
 }
 
 @end
