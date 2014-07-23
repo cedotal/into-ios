@@ -14,7 +14,7 @@
 
 @property (nonatomic, readonly) ICBInterestsViewController *interestsViewController;
 
--(void)presentTwoInterestReviewViewControllers;
+-(void)presentThisManyInterestReviewViewControllers:(long)numberOfControllersToPresent;
 
 -(void)dismissInterestReviewViewController:(ICBInterestReviewViewController *) outgoingController;
 

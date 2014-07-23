@@ -90,7 +90,7 @@
 
 -(IBAction)addNewInterests:(id)sender
 {
-    [(ICBTabBarController *)self.tabBarController presentTwoInterestReviewViewControllers];
+    [(ICBTabBarController *)self.tabBarController presentThisManyInterestReviewViewControllers:3];
 }
 
 #pragma mark adding and removing table rows

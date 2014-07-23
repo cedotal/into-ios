@@ -18,6 +18,8 @@
 
 @property (nonatomic) NSMutableArray *presentedInterestReviewViewControllers;
 
+-(void)presentInterestReviewViewController;
+
 @end
 
 @implementation ICBTabBarController
@@ -41,41 +43,41 @@
     // init array of presented interest review view controllers
     self.presentedInterestReviewViewControllers = [[NSMutableArray alloc] init];
     
-    [self presentTwoInterestReviewViewControllers];
+    [self presentThisManyInterestReviewViewControllers:3];
 }
 
 #pragma mark Presenting and handling Interest Review modals
 
--(void)presentTwoInterestReviewViewControllers
+-(void)presentThisManyInterestReviewViewControllers:(long)numberOfControllersToPresent
 {
-    ICBInterest *interest1 = [[ICBInterestStore sharedStore] retrieveRandomUnreviewedInterest];
-    ICBInterest *interest2 = [[ICBInterestStore sharedStore] retrieveRandomUnreviewedInterest];
+    for(int i = 0; i < numberOfControllersToPresent; i++){
+        [self presentInterestReviewViewController];
+    }
+}
+
+-(void)presentInterestReviewViewController
+{
+    ICBInterest *interest = [[ICBInterestStore sharedStore] retrieveRandomUnreviewedInterest];
     
-    if (interest1 != nil && interest2 != nil){
+    if (interest != nil){
         // create two interest review view controllers
-        ICBInterestReviewViewController *irvc1 = [[ICBInterestReviewViewController alloc] initWithInterest:interest1];
-        irvc1.delegate = self;
-        ICBInterestReviewViewController *irvc2 = [[ICBInterestReviewViewController alloc] initWithInterest:interest2];
-        irvc2.delegate = self;
+        ICBInterestReviewViewController *irvc = [[ICBInterestReviewViewController alloc] initWithInterest:interest];
+        irvc.delegate = self;
         
         // put them in a property of this controller so we don't lose
         // reference to them
-        [self.presentedInterestReviewViewControllers addObject:irvc1];
-        [self.presentedInterestReviewViewControllers addObject:irvc2];
+        [self.presentedInterestReviewViewControllers addObject:irvc];
 
         
         int screenWidth = self.view.frame.size.width;
         
-        irvc1.view.transform = CGAffineTransformMakeTranslation(screenWidth, 0.0);
-        irvc2.view.transform = CGAffineTransformMakeTranslation(screenWidth, 0.0);
+        irvc.view.transform = CGAffineTransformMakeTranslation(screenWidth, 0.0);
         
-        [self.view insertSubview:irvc1.view aboveSubview:self.view];
-        [self.view insertSubview:irvc2.view aboveSubview:self.view];
+        [self.view insertSubview:irvc.view aboveSubview:self.view];
         
         [UIView animateWithDuration:0.8
                          animations:^{
-            irvc1.view.transform = CGAffineTransformIdentity;
-            irvc2.view.transform = CGAffineTransformIdentity;
+            irvc.view.transform = CGAffineTransformIdentity;
         }];
     }
 }
