@@ -14,7 +14,11 @@
 
 @property (nonatomic, readonly) ICBInterestsViewController *interestsViewController;
 
--(void)presentThisManyInterestReviewViewControllers:(long)numberOfControllersToPresent;
+// if an interest review view is chained, it's delegate knows to continue presenting
+// more interest review view controllers on itself until the user has the minimum
+// viable number of interests
+-(void)presentInterestReviewViewControllerChainedUntilMinimumInterestMet:(BOOL)isChained
+                                     withMinimumViewControllersPresented:(long)minimumViewControllers;
 
 -(void)dismissInterestReviewViewController:(ICBInterestReviewViewController *) outgoingController;
 

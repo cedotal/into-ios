@@ -16,7 +16,6 @@
 @property (nonatomic) ICBInterest *interest;
 @property (nonatomic, weak) IBOutlet UILabel *interestNameLabel;
 
--(void)displayNewInterestReviewViewController;
 -(void)userDidExpressPreference:(BOOL) preference;
 
 @end
@@ -81,11 +80,6 @@
 -(IBAction)userTappedOpenUrl:(id)sender
 {
     [[UIApplication sharedApplication] openURL:self.interest.descriptionURL];
-}
-
--(void)displayNewInterestReviewViewController
-{
-    
 }
 
 @end
