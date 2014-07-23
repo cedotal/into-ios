@@ -9,15 +9,12 @@
 #import "ICBInterestReviewViewController.h"
 #import "ICBInterestsViewController.h"
 #import "ICBTabBarController.h"
+#import "ICBInterest.h"
 
 @interface ICBInterestReviewViewController()
 
 @property (nonatomic) ICBInterest *interest;
 @property (nonatomic, weak) IBOutlet UILabel *interestNameLabel;
-
-// determines whether the view attempts to push another controller of its class
-// underneath when it's dismissed
-@property (nonatomic) BOOL chained;
 
 -(void)displayNewInterestReviewViewController;
 -(void)userDidExpressPreference:(BOOL) preference;
@@ -26,20 +23,13 @@
 
 @implementation ICBInterestReviewViewController
 
--(id)initWithInterest:(ICBInterest *)interest andChainedStatus:(BOOL)chained;
+-(id)initWithInterest:(ICBInterest *)interest;
 {
     self = [super init];
     
     _interest = interest;
-    _chained = chained;
     
     return self;
-}
-
--(id)initWithInterest:(ICBInterest *)interest
-{
-    return [self initWithInterest:interest
-                 andChainedStatus:NO];
 }
 
 -(void)viewDidLoad
@@ -77,19 +67,14 @@
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You're not online!" message:@"You need to be online to edit your interests. Don't worry, you'll see this interest again later." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
                 [alertView show];
             }
-            [self.presentingViewController dismissViewControllerAnimated:YES
-                                                          completion:^{
-                                                              [self displayNewInterestReviewViewController];
-                                                          }];
-        
+            // either way, dismiss the controller
+            [self.delegate dismissInterestReviewViewController:self];
         }];
     // if user set preference to NO, nothing needs to be created on server
     } else {
         self.interest.reviewed = YES;
-        [self.presentingViewController dismissViewControllerAnimated:YES
-                                                          completion:^{
-                                                              [self displayNewInterestReviewViewController];
-                                                          }];
+        // either way, dismiss the controller
+        [self.delegate dismissInterestReviewViewController:self];
     }
 }
 
@@ -100,12 +85,7 @@
 
 -(void)displayNewInterestReviewViewController
 {
-    NSDictionary *options = [NSDictionary dictionaryWithObjects:@[@(self.chained), @(self.chained)]
-                                                        forKeys:@[@"checkMinimumPreferredInterests", @"chained"]];
-    if (self.chained){
-        [self.delegate presentThisManyInterestReviewViewControllers:1
-                                                        withOptions:options];
-    }
+    
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "ICBInterestReviewViewController.h"
 #import "ICBInterestStore.h"
 #import "ICBTabBarController.h"
+#import "ICBInterest.h"
 
 @interface ICBInterestsViewController()
 
@@ -89,12 +90,7 @@
 
 -(IBAction)addNewInterests:(id)sender
 {
-    NSMutableDictionary *optionsMutable = [NSMutableDictionary dictionaryWithCapacity:2];
-    [optionsMutable setValue:@NO forKey:@"checkMinimumPreferredInterests"];
-    [optionsMutable setValue:@NO forKey:@"chained"];
-    NSDictionary *options = [optionsMutable copy];
-    [(ICBTabBarController *)self.tabBarController presentThisManyInterestReviewViewControllers:4
-                                           withOptions:options];
+    [(ICBTabBarController *)self.tabBarController presentTwoInterestReviewViewControllers];
 }
 
 #pragma mark adding and removing table rows

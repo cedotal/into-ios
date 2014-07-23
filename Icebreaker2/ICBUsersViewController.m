@@ -10,6 +10,7 @@
 #import "ICBInterestStore.h"
 #import "ICBUserCell.h"
 #import "ICBMessagesViewController.h"
+#import "ICBInterest.h"
 
 @implementation ICBUsersViewController
 

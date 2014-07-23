@@ -7,15 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ICBInterest.h"
-#import "ICBTabBarController.h"
+@class ICBInterest;
+@class ICBTabBarController;
 
 @interface ICBInterestReviewViewController : UIViewController
 
 @property (nonatomic, weak) ICBTabBarController *delegate;
 
-// designated initializer
--(id)initWithInterest:(ICBInterest *)interest andChainedStatus:(BOOL)chained;
 -(id)initWithInterest:(ICBInterest *)interest;
 
 @end

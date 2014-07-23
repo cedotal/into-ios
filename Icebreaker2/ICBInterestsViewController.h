@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ICBInterest.h"
+@class ICBInterest;
 
 @interface ICBInterestsViewController : UITableViewController
 

@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ICBInterestsViewController.h"
+@class ICBInterestsViewController;
+@class ICBInterestReviewViewController;
 
 @interface ICBTabBarController : UITabBarController
 
 @property (nonatomic, readonly) ICBInterestsViewController *interestsViewController;
 
-// allows other view controllers to display new interest review modals
--(void)presentThisManyInterestReviewViewControllers:(NSInteger)numberOfInterestReviewViewControllers
-                                        withOptions:(NSDictionary *)options;
+-(void)presentTwoInterestReviewViewControllers;
+
+-(void)dismissInterestReviewViewController:(ICBInterestReviewViewController *) outgoingController;
 
 @end
