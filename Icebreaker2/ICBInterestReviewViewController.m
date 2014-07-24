@@ -15,6 +15,13 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *interestNameLabel;
 
+@property (nonatomic, weak) IBOutlet UIButton *yesButton;
+
+@property (nonatomic, weak) IBOutlet UIButton *noButton;
+
+@property (nonatomic, weak) IBOutlet UIButton *descriptionURLButton;
+
+
 -(void)userDidExpressPreference:(BOOL) preference;
 
 @end
@@ -48,11 +55,15 @@
 
 -(void)userDidExpressPreference:(BOOL) preference
 {
+    // disable all buttons while we handle the user's input
+    self.yesButton.enabled = NO;
+    self.noButton.enabled = NO;
+    self.descriptionURLButton.enabled = NO;
     // only need to go to network if the user set preference to YES
     if (preference){
         PFUser *user = [PFUser currentUser];
         PFObject *pfInterest = self.interest.pfObject;
-        [user addObject:pfInterest forKey:@"interests"];
+        [user addUniqueObject:pfInterest forKey:@"interests"];
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if(!error){
                 self.interest.preference = preference;

@@ -6,8 +6,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ICBInterestReviewViewController">
             <connections>
+                <outlet property="descriptionURLButton" destination="wEn-Q6-6dm" id="kLd-eE-Sk0"/>
                 <outlet property="interestNameLabel" destination="nJW-1c-TPK" id="L8r-fx-xQn"/>
+                <outlet property="noButton" destination="Xpl-NE-KzZ" id="rfI-Ne-Tef"/>
                 <outlet property="view" destination="JGx-GT-fw7" id="Ypw-02-fon"/>
+                <outlet property="yesButton" destination="vaz-vL-cCX" id="Pqd-4V-TsJ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
