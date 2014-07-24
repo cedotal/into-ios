@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ICBInterestsViewController">
             <connections>
+                <outlet property="addNewInterestsButton" destination="MQ3-Ir-SOJ" id="26w-Nz-z3m"/>
                 <outlet property="headerView" destination="meB-4r-AcH" id="hDM-uL-IRc"/>
             </connections>
         </placeholder>

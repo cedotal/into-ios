@@ -118,8 +118,12 @@
         
         [UIView animateWithDuration:0.6
                          animations:^{
-            irvc.view.transform = CGAffineTransformIdentity;
-        }];
+                             irvc.view.transform = CGAffineTransformIdentity;
+                         }
+                         completion:^(BOOL finished) {
+                             [[NSNotificationCenter defaultCenter] postNotificationName:@"nICBinterestReviewViewAnimationDidFinish"
+                                                                                 object:nil];
+                         }];
     }
 }
 

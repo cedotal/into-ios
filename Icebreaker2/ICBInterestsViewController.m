@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) IBOutlet UIView *headerView;
 
+@property (nonatomic, strong) IBOutlet UIButton *addNewInterestsButton;
+
 -(void)userDidAddInterestWithNotification:(NSNotification *) notification;
 
 @end
@@ -42,6 +44,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userDidAddInterestWithNotification:)
                                                  name: @"nICBuserDidSetPreferenceOnInterest"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(enableAddNewInterestsButton)
+                                                 name:@"nICBinterestReviewViewAnimationDidFinish"
                                                object:nil];
 }
 
@@ -90,7 +96,21 @@
 
 -(IBAction)addNewInterests:(id)sender
 {
+    [self disableAddNewInterestsButton];
     [(ICBTabBarController *)self.tabBarController presentInterestReviewViewControllerChainedUntilMinimumInterestMet:NO withMinimumViewControllersPresented:3];
+}
+
+
+// function to prevent tapping the add new interests button multiple times before
+// the views animate in
+-(void)disableAddNewInterestsButton
+{
+    self.addNewInterestsButton.enabled = NO;
+}
+
+-(void)enableAddNewInterestsButton
+{
+    self.addNewInterestsButton.enabled = YES;
 }
 
 #pragma mark adding and removing table rows
