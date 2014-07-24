@@ -12,6 +12,8 @@
 
 @interface ICBInterestReviewViewController : UIViewController
 
+@property (nonatomic) ICBInterest *interest;
+
 @property (nonatomic, weak) ICBTabBarController *delegate;
 
 // if an interest review view is chained, it's delegate knows to continue presenting

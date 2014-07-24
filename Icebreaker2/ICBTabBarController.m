@@ -72,8 +72,26 @@
 -(void)presentInterestReviewViewControllerChainedUntilMinimumInterestsMet:(BOOL)isChained
                                                            withSuccessors:(long)successors
 {
-    ICBInterest *interest = [[ICBInterestStore sharedStore] retrieveRandomUnreviewedInterest];
+    // in getting our interest, we need to make sure that we're not using an interest
+    // that already has an interest review view controller presented for it
+    NSMutableArray *presentedInterests = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [self.presentedInterestReviewViewControllers count]; i++){
+        ICBInterestReviewViewController *irvc = self.presentedInterestReviewViewControllers[i];
+        ICBInterest *presentedInterest = irvc.interest;
+        [presentedInterests addObject:presentedInterest];
+    }
     
+    // WARNING: this while will loop infinitely in the unlikely case where
+    // the number of total interests available locally is lower than the permitted
+    // number of interests
+    ICBInterest *interest;
+    while(interest == nil){
+        ICBInterest *randomInterest = [[ICBInterestStore sharedStore] retrieveRandomUnreviewedInterest];
+        if([presentedInterests indexOfObject:randomInterest] == NSNotFound){
+            interest = randomInterest;
+        }
+    }
+
     if (interest != nil){
         // create two interest review view controllers
         ICBInterestReviewViewController *irvc = [[ICBInterestReviewViewController alloc] initWithInterest:interest];
@@ -107,12 +125,13 @@
 
 -(void)dismissInterestReviewViewController:(ICBInterestReviewViewController *)outgoingController
 {
-    // if the outgoing controller is chained, we need to conditionally (based on
-    // whether the user has the minimum number of interests) insert a
-    // view controller under it so 1) we can continue collecting "Yes" interests from
-    // the user and 2) it appears to the user like the newly-uncovered view was there
-    // all along
-    if(![[ICBInterestStore sharedStore] userHasMinimumPreferredInterests] || outgoingController.successors > 0){
+    // if the outgoing controller is chained or if it has successors, we need to conditionally (based on whether the user has the minimum number of interests) insert a
+    // view controller under it so it appears to the user like the newly-uncovered view was there all along
+    
+    // however, if there is only one unreviewed interest left in the interest store
+    BOOL needToChain = outgoingController.chained && ![[ICBInterestStore sharedStore] userHasMinimumPreferredInterests];
+    BOOL hasSuccessors = outgoingController.successors > 0;
+    if(needToChain || hasSuccessors){
         [self presentInterestReviewViewControllerChainedUntilMinimumInterestsMet:outgoingController.chained
                                                                   withSuccessors:(outgoingController.successors -1)];
     }

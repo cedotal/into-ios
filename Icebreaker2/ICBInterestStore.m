@@ -115,7 +115,8 @@ const NSInteger minimumPreferences = 3;
         return !(((ICBInterest *)obj).reviewed);
     }];
     NSUInteger count = [unreviewedItemsIndexes count];
-    // if none are left, reset all non-preferred interests to be non-reviewed
+    // if none are left, reset all non-preferred interests to be non-reviewed to create
+    // the appearance of a bottomless pool of interests
     if (count == 0){
         for(ICBInterest *item in _privateItems){
             if(!item.preference){

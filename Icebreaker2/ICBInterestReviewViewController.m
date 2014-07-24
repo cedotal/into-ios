@@ -13,7 +13,6 @@
 
 @interface ICBInterestReviewViewController()
 
-@property (nonatomic) ICBInterest *interest;
 @property (nonatomic, weak) IBOutlet UILabel *interestNameLabel;
 
 -(void)userDidExpressPreference:(BOOL) preference;
