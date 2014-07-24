@@ -36,12 +36,24 @@
     
     // register the nib, which contains a cell
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ICBUserCell"];
+    
+    // set up listeners for events pertaining to interests, since updating the
+    // set of preferred interests may change the users that we match the current
+    // user with
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadNewUsers)
+                                                 name: @"nICBuserDidSetPreferenceOnInterest"
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
+}
+-(void)loadNewUsers
+{
+    [self loadObjects];
 }
 
 // override the default no-op to get objects from Parse
