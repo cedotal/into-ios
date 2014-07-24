@@ -91,8 +91,8 @@
             interest = randomInterest;
         }
     }
-
-    if (interest != nil){
+    
+    if (interest != nil && ![[ICBInterestStore sharedStore] userHasMaximumPreferredInterests]){
         // create two interest review view controllers
         ICBInterestReviewViewController *irvc = [[ICBInterestReviewViewController alloc] initWithInterest:interest];
         irvc.delegate = self;

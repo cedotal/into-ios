@@ -20,6 +20,7 @@
 
 // we will attempt to get a new user to have at least this many interests before we try to show them any matches
 const NSInteger minimumPreferences = 3;
+const NSInteger maximumPreferences = 8;
 
 // if a programmer calls [[BNRItemStore alloc] init], let him know the error of his ways
 -(instancetype)init
@@ -157,6 +158,14 @@ const NSInteger minimumPreferences = 3;
     }];
     return ([preferredInterestsIndexes count] >= minimumPreferences);
 
+}
+
+-(BOOL)userHasMaximumPreferredInterests
+{
+    NSIndexSet *preferredInterestsIndexes = [_privateItems indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return (((ICBInterest*)obj).preference);
+    }];
+    return ([preferredInterestsIndexes count] >= maximumPreferences);
 }
 
 @end

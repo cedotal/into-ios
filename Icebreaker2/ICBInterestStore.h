@@ -23,5 +23,6 @@
 
 // user status
 -(BOOL)userHasMinimumPreferredInterests;
+-(BOOL)userHasMaximumPreferredInterests;
 
 @end

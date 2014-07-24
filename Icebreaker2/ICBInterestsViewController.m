@@ -96,8 +96,13 @@
 
 -(IBAction)addNewInterests:(id)sender
 {
-    [self disableAddNewInterestsButton];
-    [(ICBTabBarController *)self.tabBarController presentInterestReviewViewControllerChainedUntilMinimumInterestMet:NO withMinimumViewControllersPresented:3];
+    if(![[ICBInterestStore sharedStore] userHasMaximumPreferredInterests]){
+        [self disableAddNewInterestsButton];
+        [(ICBTabBarController *)self.tabBarController presentInterestReviewViewControllerChainedUntilMinimumInterestMet:NO withMinimumViewControllersPresented:3];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You have enough interests!" message:@"Better to go deep than wide. Try pursuing the interests you already have." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+        [alertView show];
+    }
 }
 
 
