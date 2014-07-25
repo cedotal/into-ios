@@ -40,6 +40,15 @@
 -(void)viewDidLoad
 {
     self.interestNameLabel.text = [NSString stringWithFormat:@"%@%@", self.interest.name, @"?"];
+    
+    // ensure that buttons don't change color when selected
+    CGColorRef buttonTitleColorNormal = self.yesButton.tintColor.CGColor;
+    UIColor *buttonTitleColorNormalCopy = [UIColor colorWithCGColor:buttonTitleColorNormal];
+    
+    [self.yesButton setTitleColor:buttonTitleColorNormalCopy forState:UIControlStateDisabled];
+    [self.noButton setTitleColor:buttonTitleColorNormalCopy forState:UIControlStateDisabled];
+    [self.descriptionURLButton setTitleColor:buttonTitleColorNormalCopy forState:UIControlStateDisabled];
+
 }
 
 // handle user actions
