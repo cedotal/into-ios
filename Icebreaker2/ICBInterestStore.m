@@ -148,7 +148,11 @@ const NSInteger maximumPreferences = 8;
         return (((ICBInterest*)obj).preference);
     }];
     NSArray *preferredInterests = [_privateItems objectsAtIndexes:preferredInterestsIndexes];
-    return preferredInterests;
+    // return in the order that the user marked them as preferred
+    NSMutableArray *preferredInterestsMutable = [NSMutableArray arrayWithArray:preferredInterests];
+    NSSortDescriptor *sortOnUpdatedAt = [NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:YES];
+    [preferredInterestsMutable sortUsingDescriptors:[NSArray arrayWithObject:sortOnUpdatedAt]];
+    return [preferredInterestsMutable copy];
 }
 
 -(BOOL)userHasMinimumPreferredInterests

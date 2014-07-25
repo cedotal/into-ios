@@ -14,6 +14,8 @@
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSURL *descriptionURL;
 @property (nonatomic, readonly) PFObject *pfObject;
+@property (nonatomic, readonly) NSDate *updatedAt;
+
 
 @property (nonatomic) BOOL preference;
 @property (nonatomic) BOOL reviewed;

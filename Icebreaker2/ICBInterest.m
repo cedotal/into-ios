@@ -30,6 +30,7 @@ andDescriptionURL:(NSURL *)descriptionURL
         _reviewed = NO;
         // default preference is NO; most people don't like most things
         _preference = NO;
+        _updatedAt = [NSDate date];
     }
     
     // return address of new object
@@ -41,6 +42,7 @@ andDescriptionURL:(NSURL *)descriptionURL
     _preference = preference;
     // setting a preference is, by definition, reviewing
     _reviewed = YES;
+    [self updateUpdatedAt];
 }
 
 -(BOOL)isEqual:(id)object
@@ -55,6 +57,11 @@ andDescriptionURL:(NSURL *)descriptionURL
     NSString *otherObjectId = [[(ICBInterest *)object valueForKey:@"pfObject"] valueForKey:@"objectId"];
     BOOL equals = [ownObjectId isEqualToString: otherObjectId];
     return (equals);
+}
+
+-(void)updateUpdatedAt
+{
+    _updatedAt = [NSDate date];
 }
 
 
