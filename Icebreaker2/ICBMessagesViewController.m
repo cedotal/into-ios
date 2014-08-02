@@ -28,6 +28,8 @@
 
 @implementation ICBMessagesViewController
 
+const NSInteger cellMargin = 18;
+
 -(instancetype)init{
     self = [super init];
     
@@ -166,11 +168,45 @@
     return messagesQuery;
 }
 
-// UITableViewDelegate methods
+#pragma mark - UITableView protocol
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"
                                                             forIndexPath:indexPath];
+    NSString *messageText = [self messageForIndexPath:indexPath];
+    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(cellMargin, cellMargin, (self.view.frame.size.width - (cellMargin*2)), MAXFLOAT)];
+    // have to remove our subviews, since we may be reusing a previously-used cell
+    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [cell.contentView addSubview:labelView];
+    labelView.numberOfLines = 0;
+    labelView.text = messageText;
+    labelView.lineBreakMode = NSLineBreakByCharWrapping;
+    [labelView sizeToFit];
+    labelView.frame = CGRectMake(labelView.frame.origin.x, cellMargin, labelView.frame.size.width, labelView.frame.size.height);
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellText = [self messageForIndexPath: indexPath];
+    // use a dummy message view and sizeToFit to get the proper size
+    UILabel *dummyMessageView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, (self.view.frame.size.width - (cellMargin*2)), self.view.frame.size.height)];
+    dummyMessageView.numberOfLines = 0;
+    dummyMessageView.text = cellText;
+    dummyMessageView.lineBreakMode = NSLineBreakByCharWrapping;
+    [dummyMessageView sizeToFit];
+    CGFloat height = dummyMessageView.frame.size.height + (cellMargin*2);
+    return height;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.messages count];
+}
+
+-(NSString *)messageForIndexPath:(NSIndexPath *)indexPath
+{
     PFObject *message = self.messages[indexPath.row];
     NSMutableString *messageText = [[NSMutableString alloc] init];
     // add sending user
@@ -181,14 +217,10 @@
     [messageText appendString:@": "];
     // add message content
     [messageText appendString:[message objectForKey:@"content"]];
-    cell.textLabel.text = messageText;
-    return cell;
+    return messageText;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self.messages count];
-}
+#pragma mark - handling user input
 
 -(IBAction)sendMessage:(id)sender {
     PFObject *message = [PFObject objectWithClassName:@"Message"];
@@ -215,6 +247,7 @@
     }];
 }
 
+#pragma mark - resizing views on keyboard appearance
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     // determine if user is scrolled to bottom
