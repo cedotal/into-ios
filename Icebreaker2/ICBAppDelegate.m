@@ -57,6 +57,8 @@
     if(!userIsLookingAtMessagesView){
         // show an alert window
         [PFPush handlePush:userInfo];
+        [self resetNotificationBadges];
+
     } else {
         // figure out if they're looking at the messages view of the user who
         // sent the message
@@ -69,6 +71,8 @@
         if (![objectIdOfUserWhoseMessagesAreBeingViewed isEqualToString: objectIdOfUserWhoSentMessage]){
             // show an alert window
             [PFPush handlePush:userInfo];
+            [self resetNotificationBadges];
+
         }
     }
 }
@@ -95,15 +99,21 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     // reset badges to 0
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    installation.badge = 0;
-    [installation saveEventually];
-
+    [self resetNotificationBadges];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)resetNotificationBadges
+{
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    if(installation.badge != 0){
+        installation.badge = 0;
+        [installation saveEventually];
+    }
 }
 
 @end
