@@ -55,8 +55,6 @@
     UIViewController *topController = navController.topViewController;
     BOOL userIsLookingAtMessagesView = [topController isKindOfClass:[ICBMessagesViewController class]];
     if(!userIsLookingAtMessagesView){
-        // show an alert window
-        [PFPush handlePush:userInfo];
         [self resetNotificationBadges];
 
     } else {
@@ -69,10 +67,7 @@
         // check if the messages view we're looking at is actually that of a
         // different user
         if (![objectIdOfUserWhoseMessagesAreBeingViewed isEqualToString: objectIdOfUserWhoSentMessage]){
-            // show an alert window
-            [PFPush handlePush:userInfo];
             [self resetNotificationBadges];
-
         }
     }
 }
