@@ -61,11 +61,19 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSArray *preferredInterests = [[ICBInterestStore sharedStore] allPreferredInterests];
     ICBInterest *interest = preferredInterests[indexPath.row];
     cell.textLabel.text = interest.name;
     return cell;
 }
+
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // prevent selection of rows
+    return nil;
+}
+
 
 -(UIView *)headerView
 {

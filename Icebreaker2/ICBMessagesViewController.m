@@ -28,6 +28,7 @@
 
 @implementation ICBMessagesViewController
 
+// margin of text labels in cells
 const NSInteger cellMargin = 18;
 
 -(instancetype)init{
@@ -174,6 +175,7 @@ const NSInteger cellMargin = 18;
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"
                                                             forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSString *messageText = [self messageForIndexPath:indexPath];
     UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(cellMargin, cellMargin, (self.view.frame.size.width - (cellMargin*2)), MAXFLOAT)];
     // have to remove our subviews, since we may be reusing a previously-used cell
