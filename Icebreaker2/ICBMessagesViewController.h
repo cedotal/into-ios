@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *fixedTableFooterView;
+@property (nonatomic, strong) PFObject *matchedUser;
 
 -(instancetype)initWithUser:(PFObject *) matchedUser;
 

@@ -12,8 +12,6 @@
 
 @interface ICBMessagesViewController()
 
-@property (nonatomic, strong) PFObject *matchedUser;
-
 // pointers to important subviews
 @property (nonatomic, strong) UITableView *messagesView;
 @property (nonatomic, strong) UIView *sendMessageView;
@@ -245,6 +243,22 @@ const NSInteger cellMargin = 18;
             [self.messagesView reloadData];
             // scroll table to bottom to show inputted message
             [self scrollMessagesViewToBottom];
+            // create supporting objects for push notification to send to messaged user
+            NSMutableString *pushMessage = [[NSMutableString alloc] init];
+            [pushMessage appendString:[toUser objectForKey:@"username"]];
+            [pushMessage appendString:@" has sent you a message!"];
+            PFQuery *toUserQuery = [PFInstallation query];
+            [toUserQuery whereKey:@"user" equalTo:toUser];
+            NSString *fromUserObjectId = fromUser.objectId;
+            NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:pushMessage, @"alert",
+                                  @"Increment", @"badge",
+                                  fromUserObjectId, @"u",
+                                  nil];
+            // send the push
+            PFPush *push = [[PFPush alloc] init];
+            [push setQuery:toUserQuery];
+            [push setData:data];
+            [push sendPushInBackground];
         }
     }];
 }

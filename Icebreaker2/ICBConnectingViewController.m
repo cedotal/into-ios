@@ -9,6 +9,7 @@
 #import "ICBConnectingViewController.h"
 #import "ICBInterestStore.h"
 #import "ICBTabBarController.h"
+#import <Parse/Parse.h>
 
 @interface ICBConnectingViewController()
 
@@ -34,6 +35,11 @@
 
 -(void)fetchInterestsDidSucceedWithNotification:(NSNotification *)notification
 {
+    // if we successfully connected, associate this logged-in user with the
+    // current Parse installation
+    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
+    [[PFInstallation currentInstallation] saveEventually];
+    // push the core application view controller
     ICBTabBarController *tbc = [[ICBTabBarController alloc] init];
     [self.navigationController pushViewController:tbc
                                          animated:YES];

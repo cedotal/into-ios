@@ -8,6 +8,7 @@
 
 #import "ICBAppDelegate.h"
 #import "ICBWelcomeViewController.h"
+#import "ICBMessagesViewController.h"
 #import <Parse/Parse.h>
 
 @implementation ICBAppDelegate
@@ -24,6 +25,9 @@
     // Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
+    // register for push notifications
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+    
     UIViewController *welcomeController = [[ICBWelcomeViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:welcomeController];
     navController.navigationBarHidden = YES;
@@ -32,6 +36,43 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // store the device token in the current parse installation
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    [installation setDeviceTokenFromData:deviceToken];
+    installation.channels = @[@"global"];
+    [installation saveInBackground];
+}
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    // figure out if the user is not currently looking at the messagesView for the
+    // sending user. if they are, there's no point in showing a notification, since
+    // they're going to see the message anyway
+    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
+    UIViewController *topController = navController.topViewController;
+    BOOL userIsLookingAtMessagesView = [topController isKindOfClass:[ICBMessagesViewController class]];
+    if(!userIsLookingAtMessagesView){
+        // show an alert window
+        [PFPush handlePush:userInfo];
+    } else {
+        // figure out if they're looking at the messages view of the user who
+        // sent the message
+        ICBMessagesViewController *messagesViewControllerCast = (ICBMessagesViewController *)topController;
+        PFObject *userWhoseMessagesAreBeingViewed = messagesViewControllerCast.matchedUser;
+        NSString *objectIdOfUserWhoseMessagesAreBeingViewed = userWhoseMessagesAreBeingViewed.objectId;
+        NSString *objectIdOfUserWhoSentMessage = [userInfo objectForKey:@"u"];
+        // check if the messages view we're looking at is actually that of a
+        // different user
+        if (![objectIdOfUserWhoseMessagesAreBeingViewed isEqualToString: objectIdOfUserWhoSentMessage]){
+            // show an alert window
+            [PFPush handlePush:userInfo];
+        }
+    }
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -53,6 +94,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // reset badges to 0
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    installation.badge = 0;
+    [installation saveEventually];
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
