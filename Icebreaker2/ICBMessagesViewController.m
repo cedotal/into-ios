@@ -245,7 +245,7 @@ const NSInteger cellMargin = 18;
             [self scrollMessagesViewToBottom];
             // create supporting objects for push notification to send to messaged user
             NSMutableString *pushMessage = [[NSMutableString alloc] init];
-            [pushMessage appendString:[toUser objectForKey:@"username"]];
+            [pushMessage appendString:[fromUser objectForKey:@"username"]];
             [pushMessage appendString:@" has sent you a message!"];
             PFQuery *toUserQuery = [PFInstallation query];
             [toUserQuery whereKey:@"user" equalTo:toUser];
