@@ -13,5 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *interestLabel1;
 @property (weak, nonatomic) IBOutlet UILabel *interestLabel2;
 @property (weak, nonatomic) IBOutlet UILabel *interestLabel3;
+@property (weak, nonatomic) IBOutlet UILabel *interestLabel4;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+
 
 @end

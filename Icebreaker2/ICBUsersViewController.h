@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@interface ICBUsersViewController : PFQueryTableViewController
+@interface ICBUsersViewController : PFQueryTableViewController <CLLocationManagerDelegate>
 
 @end

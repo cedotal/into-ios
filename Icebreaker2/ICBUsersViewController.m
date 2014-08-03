@@ -11,6 +11,15 @@
 #import "ICBUserCell.h"
 #import "ICBMessagesViewController.h"
 #import "ICBInterest.h"
+#import <CoreLocation/CoreLocation.h>
+
+@interface ICBUsersViewController()
+
+@property (nonatomic) CLLocationManager *locationManager;
+
+@property (nonatomic) CLLocation *currentLocation;
+
+@end
 
 @implementation ICBUsersViewController
 
@@ -44,6 +53,22 @@
                                              selector:@selector(loadNewUsers)
                                                  name: @"nICBuserDidSetPreferenceOnInterest"
                                                object:nil];
+    
+    // set this controller up as the delegate for location events
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    self.locationManager = locationManager;
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    // set a movement threshold for new events
+    locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
+    
+    [locationManager startUpdatingLocation];
+    
+    // set the initial location
+    CLLocation *currentLocation = locationManager.location;
+    if(currentLocation){
+        self.currentLocation = currentLocation;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -80,10 +105,17 @@
     [orQuery whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
     // we need each user's full set of interest objects to display the cells properly
     [orQuery includeKey:@"interests"];
+    
+    // sort the results by their distance from the current user
+    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude
+                                               longitude:self.currentLocation.coordinate.longitude];
+    // include everyone on the goddamn planet
+    [orQuery whereKey:@"location" nearGeoPoint:point withinKilometers:25000];
+    
     return orQuery;
 }
 
-// UITableViewController methods
+#pragma mark - UITableViewController methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)matchedUser
 {
     ICBUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ICBUserCell" forIndexPath:indexPath];
@@ -111,7 +143,7 @@
     }];
     // only display as many interest labels as we have room for, and don't attempt to
     // access array indexes in matched user's interests that don't exist
-    unsigned long interestsToDisplay = MIN(3, [matchedUserInterests count]);
+    unsigned long interestsToDisplay = MIN(4, [matchedUserInterests count]);
     for (unsigned long i = 0; i < interestsToDisplay; i++){
         ICBInterest *interest = matchedUserInterests[i];
         // don't attempt array access if nothing is in the array
@@ -127,12 +159,25 @@
             interestLabel.text = interestName;
         }
     }
+    
+    // calculate and display distance
+    PFGeoPoint *matchedUserLocation = [matchedUser objectForKey:@"location"];
+    int distanceToMatchedUser = floor([matchedUserLocation distanceInMilesTo:[PFGeoPoint geoPointWithLocation:self.currentLocation]]);
+    NSMutableString *distanceLabelText = [[NSMutableString alloc] init];;
+    if (distanceToMatchedUser < 1){
+        [distanceLabelText appendString:@"Within a mile"];
+    } else {
+        [distanceLabelText appendString:[NSString stringWithFormat:@"%d", distanceToMatchedUser]];
+        [distanceLabelText appendString:@" miles"];
+    }
+    cell.distanceLabel.text = distanceLabelText;
+    
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 102;
+    return 165;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -142,5 +187,22 @@
     ICBMessagesViewController *mvc = [[ICBMessagesViewController alloc] initWithUser:matchedUser];
     [navController pushViewController:mvc animated:YES];
 }
+
+#pragma mark - CLLocationManagerDelegate methods
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *mostRecentLocation = [locations lastObject];
+    self.currentLocation = mostRecentLocation;
+    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude
+                                               longitude:self.currentLocation.coordinate.longitude];
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser setObject:point
+                    forKey:@"location"];
+    [currentUser saveEventually];
+    
+    [self loadObjects];
+}
+
 
 @end
