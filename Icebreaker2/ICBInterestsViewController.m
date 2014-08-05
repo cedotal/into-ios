@@ -114,7 +114,7 @@
 }
 
 
-// function to prevent tapping the add new interests button multiple times before
+// functions to prevent tapping the add new interests button multiple times before
 // the views animate in
 -(void)disableAddNewInterestsButton
 {

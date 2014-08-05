@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIView *sendMessageView;
 
 @property (nonatomic, weak) IBOutlet UITextField *composeMessageField;
+@property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
 
 @property (nonatomic, strong) NSMutableArray *messages;
 
@@ -224,7 +225,12 @@ const NSInteger cellMargin = 18;
 
 -(IBAction)sendMessage:(id)sender {
     PFObject *message = [PFObject objectWithClassName:@"Message"];
+    // sending empty strings is disallowed
     NSString *content = self.composeMessageField.text;
+    if ([content isEqualToString: @""]){
+        return;
+    }
+    [self disableSendMessageElements];
     [message setObject:content forKey:@"content"];
     PFObject *fromUser = [PFUser currentUser];
     [message setObject:fromUser forKey:@"fromUser"];
@@ -234,6 +240,7 @@ const NSInteger cellMargin = 18;
         if(error){
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You're not online!" message:@"You need to be online to send messages." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
             [alertView show];
+            [self enableSendMessageElements];
         } else {
             // wipe the contents of the text field
             self.composeMessageField.text = @"";
@@ -259,8 +266,22 @@ const NSInteger cellMargin = 18;
             [push setQuery:toUserQuery];
             [push setData:data];
             [push sendPushInBackground];
+            [self enableSendMessageElements];
         }
     }];
+}
+
+// functions to prevent tapping the add new interests button multiple times before
+// the views animate in
+-(void)disableSendMessageElements
+{
+    self.sendMessageButton.enabled = NO;
+
+}
+
+-(void)enableSendMessageElements
+{
+    self.sendMessageButton.enabled = YES;
 }
 
 #pragma mark - resizing views on keyboard appearance
