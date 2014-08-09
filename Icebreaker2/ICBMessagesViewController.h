@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@interface ICBMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ICBMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *fixedTableFooterView;

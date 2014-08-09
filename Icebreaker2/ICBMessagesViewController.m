@@ -67,12 +67,11 @@ const NSInteger cellMargin = 18;
     // ** a messagesView for the messages, and
     // ** a textEditView for the text editing textField and button
     
-    // have to set frame manually or subview won't know to capture and pass
-    // on touch events
+    // text edit view height is fixed no matter the screen size
+    CGFloat textEditViewHeight = 44.0;
     
-    CGFloat textEditViewHeight = 75.0;
-    
-    // Initialize the UITableView
+    // Initialize the UITableView, which is as high as the screen minus
+    // the text edit view
     CGRect messagesViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight);
     self.messagesView = [[UITableView alloc] initWithFrame:messagesViewFrame style:UITableViewStylePlain];
     [self.messagesView setDataSource:self];
@@ -85,8 +84,9 @@ const NSInteger cellMargin = 18;
     [self.view addSubview:self.messagesView];
     
     // Initialize the sendMessageView
-    CGRect sendMessageViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMaxY(self.view.bounds) - textEditViewHeight, CGRectGetWidth(self.view.bounds), textEditViewHeight);
-    self.sendMessageView = [self createSendMessageView];
+    CGRect sendMessageViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), self.view.frame.size.height - textEditViewHeight, CGRectGetWidth(self.view.bounds), textEditViewHeight);
+    NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ICBMessagesViewSendMessageView" owner:self options:nil];
+    self.sendMessageView = [nibObjects firstObject];
     self.sendMessageView.frame = sendMessageViewFrame;
     [self.view addSubview:self.sendMessageView];
     
@@ -282,6 +282,13 @@ const NSInteger cellMargin = 18;
 -(void)enableSendMessageElements
 {
     self.sendMessageButton.enabled = YES;
+}
+
+// handle all editing in the text field to change it's size dynamically
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    // we don't actually use this to edit the text, so return NO
+    return NO;
 }
 
 #pragma mark - resizing views on keyboard appearance
