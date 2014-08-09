@@ -9,6 +9,7 @@
 #import "ICBAppDelegate.h"
 #import "ICBWelcomeViewController.h"
 #import "ICBMessagesViewController.h"
+#import "ICBConnectingViewController.h"
 #import <Parse/Parse.h>
 
 @implementation ICBAppDelegate
@@ -34,6 +35,15 @@
     self.window.rootViewController = navController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    // automatically log the user in if we have access to a valid PFUser object
+    if([PFUser currentUser]){
+        // push a connecting view controller onto the stack
+        ICBConnectingViewController *cvc = [[ICBConnectingViewController alloc] init];
+        [navController pushViewController:cvc
+                                 animated:NO];
+    }
+    
     return YES;
 }
 
