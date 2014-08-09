@@ -13,22 +13,28 @@
 @interface ICBMessagesViewController()
 
 // pointers to important subviews
+@property (nonatomic, strong) UIView *introductionView;
 @property (nonatomic, strong) UITableView *messagesView;
 @property (nonatomic, strong) UIView *sendMessageView;
-
 @property (nonatomic, weak) IBOutlet UITextView *composeMessageView;
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
 
+// store messages on the controller
 @property (nonatomic, strong) NSMutableArray *messages;
 
+// timer for periodically attempting to fetch new messages
 @property (nonatomic, strong) NSTimer *fetchMessagesTimer;
 
 @end
 
 @implementation ICBMessagesViewController
 
-// margin of text labels in cells
+#pragma mark - layout constants
+
 const NSInteger cellMargin = 18;
+const NSInteger textEditViewHeight = 44.0;
+
+# pragma mark - initialization methods
 
 -(instancetype)init{
     self = [super init];
@@ -46,7 +52,7 @@ const NSInteger cellMargin = 18;
     
     if (self){
         _matchedUser = matchedUser;
-        self.fetchMessagesTimer = [NSTimer scheduledTimerWithTimeInterval:3
+        self.fetchMessagesTimer = [NSTimer scheduledTimerWithTimeInterval:2
                                                                    target: self
                                                                  selector:@selector(fetchMessages)
                                                                  userInfo:nil
@@ -56,6 +62,7 @@ const NSInteger cellMargin = 18;
     return self;
 }
 
+# pragma mark - methods for setting up the controller's views
 
 -(void)viewDidLoad
 {
@@ -67,20 +74,18 @@ const NSInteger cellMargin = 18;
     // ** a messagesView for the messages, and
     // ** a textEditView for the text editing textField and button
     
-    // text edit view height is fixed no matter the screen size
-    CGFloat textEditViewHeight = 44.0;
-    
-    // Initialize the UITableView, which is as high as the screen minus
-    // the text edit view
+    // initialize the messages table view
     CGRect messagesViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight);
-    self.messagesView = [[UITableView alloc] initWithFrame:messagesViewFrame style:UITableViewStylePlain];
+    self.messagesView = [[UITableView alloc] initWithFrame:messagesViewFrame
+                                                     style:UITableViewStylePlain];
+    
     [self.messagesView setDataSource:self];
     [self.messagesView setDelegate:self];
     
     // register the nib, which contains a cell
     [self.messagesView registerClass:[UITableViewCell class]
-           forCellReuseIdentifier:@"UITableViewCell"];
-    
+              forCellReuseIdentifier:@"UITableViewCell"];
+
     [self.view addSubview:self.messagesView];
     
     // Initialize the sendMessageView
@@ -100,12 +105,43 @@ const NSInteger cellMargin = 18;
     self.navigationItem.title = [self.matchedUser objectForKey:@"username"];
     
     // get messages for the first time
-    [self fetchMessages];
+    [self fetchMessagesWithFirstTimeBehavior:YES];
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    self.fetchMessagesTimer = nil;
+-(void)fetchMessages
+{
+    [self fetchMessagesWithFirstTimeBehavior:NO];
+}
+
+-(void)fetchMessagesWithFirstTimeBehavior:(BOOL)firstTime
+{
+    PFQuery *query = [self queryForTable];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error){
+            // update local data for messages
+            // custom setter method will handle the rest
+            self.messages = [NSMutableArray arrayWithArray:objects];
+            
+            if([self.messages count] == 0){
+                self.introductionView = self.createIntroductionView;
+                [self.view addSubview:self.introductionView];
+            } else {
+                self.introductionView = nil;
+            }
+            [self.tableView reloadData];
+            
+            // since it's the first time we put messages into the view, scroll down to
+            // bottom (most recent) message
+            [self scrollMessagesViewToBottom];
+        } else {
+            // if error and we're doing this for the first time, kick back to previous view
+            if(firstTime){
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You're not online!" message:@"You need to be online to send messages." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                [alertView show];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,34 +151,14 @@ const NSInteger cellMargin = 18;
     [super viewWillAppear:animated];
 }
 
--(UIView *)createSendMessageView
-{
-    if(!_sendMessageView){
-        NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ICBMessagesViewSendMessageView" owner:self options:nil];
-        _sendMessageView = [nibObjects firstObject];
-    }
-    return _sendMessageView;
-}
+#pragma mark - methods for rendering the introduction view and messages view
 
--(void)fetchMessages
+-(UIView *)createIntroductionView
 {
-    // only need to scroll to bottom the first time we fetch messages
-    static BOOL firstFetch = TRUE;
-    
-    PFQuery *query = [self queryForTable];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error){
-            // update local data for messages
-            self.messages = [NSMutableArray arrayWithArray:objects];
-            // reload table
-            [self.messagesView reloadData];
-            if(firstFetch){
-                [self scrollMessagesViewToBottom];
-                firstFetch = !firstFetch;
-            }
-        }
-        // if error, do nothing
-    }];
+    CGRect introductionViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight);
+    UIView *introductionView = [[UIView alloc] initWithFrame:introductionViewFrame];
+    introductionView.backgroundColor = [UIColor redColor];
+    return introductionView;
 }
 
 // query to get objects from Parse
@@ -227,13 +243,17 @@ const NSInteger cellMargin = 18;
 #pragma mark - handling user input
 
 -(IBAction)sendMessage:(id)sender {
-    PFObject *message = [PFObject objectWithClassName:@"Message"];
     // sending empty strings is disallowed
     NSString *content = self.composeMessageView.text;
     if ([content isEqualToString: @""]){
         return;
     }
+    
+    // disable UI while we attempt to send, to prevent multiple sendings
     [self disableSendMessageElements];
+    
+    // construct message object
+    PFObject *message = [PFObject objectWithClassName:@"Message"];
     [message setObject:content forKey:@"content"];
     PFObject *fromUser = [PFUser currentUser];
     [message setObject:fromUser forKey:@"fromUser"];
@@ -287,8 +307,6 @@ const NSInteger cellMargin = 18;
     self.sendMessageButton.enabled = YES;
 }
 
-
-
 // on editing in text view, change heights of application views
 -(void)textViewDidChange:(UITextView *)textView
 {
@@ -297,7 +315,7 @@ const NSInteger cellMargin = 18;
      // because iOS7's text view calculates content size lazily, we need to force this
      // calculation ourselves
 
-    // note: the below is brittle and obtuse. it works well enough on iOS7 to allow a two-line, scrollable editing field.
+    // note: the below method is brittle and obtuse. it works well enough on iOS7 to allow a two-line, scrollable editing field.
     
     [self.composeMessageView.layoutManager ensureLayoutForTextContainer:self.composeMessageView.textContainer];
     CGRect containerRect = [self.composeMessageView.layoutManager usedRectForTextContainer:self.composeMessageView.textContainer];
@@ -369,6 +387,7 @@ const NSInteger cellMargin = 18;
 
 -(void)scrollMessagesViewToBottom
 {
+    [self.messagesView reloadData];
     // handle the case where we have no messages, since we can't tell the table to scroll
     // to a negatively-indexed cell
     long targetRow = ([self.messages count] - 1);
@@ -380,5 +399,13 @@ const NSInteger cellMargin = 18;
                                          animated:YES];
     }
 }
+
+# pragma mark - methods for tearing down the controller
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    self.fetchMessagesTimer = nil;
+}
+
 
 @end
