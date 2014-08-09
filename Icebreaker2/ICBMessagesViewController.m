@@ -396,6 +396,11 @@ const NSInteger textEditViewHeight = 44.0;
         CGRect newMessagesViewFrame = CGRectMake(controllerViewX, controllerViewY, controllerViewWidth, newMessagesViewHeight);
         self.messagesView.frame = newMessagesViewFrame;
         
+        // if introduction view is visible, resize it
+        if(self.introductionView){
+            self.introductionView.frame = newMessagesViewFrame;
+        }
+        
         // move the sendMessagesView to immediately below the new messagesView
         int newSendMessageViewY = newMessagesViewHeight;
         CGRect newSendMessageViewFrame = CGRectMake(sendMessageViewX, newSendMessageViewY, sendMessageViewWidth, sendMessageViewHeight);

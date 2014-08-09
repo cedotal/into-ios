@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Icebreaker2/ICBMessagesViewController.m"
-            timestampString = "429317411.011696"
+            timestampString = "429317612.382466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "417"
-            endingLineNumber = "417"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
             landmarkName = "-scrollMessagesViewToBottom"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Icebreaker2/ICBMessagesViewController.m"
-            timestampString = "429317411.011696"
+            timestampString = "429317612.382466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "418"
-            endingLineNumber = "418"
+            startingLineNumber = "423"
+            endingLineNumber = "423"
             landmarkName = "-scrollMessagesViewToBottom"
             landmarkType = "5">
          </BreakpointContent>
