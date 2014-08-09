@@ -9,7 +9,6 @@
 #import "ICBMessagesViewController.h"
 #import "UIView+MWKeyboardAnimation.h"
 
-
 @interface ICBMessagesViewController()
 
 // pointers to important subviews
@@ -149,6 +148,12 @@ const NSInteger textEditViewHeight = 44.0;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    // set border styling on compose message view so it resembles a UITextField
+    self.composeMessageView.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.composeMessageView.layer.borderWidth = 0.7f;
+    self.composeMessageView.layer.cornerRadius = 5.0f;
+
+    
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [self.navigationController navigationItem].title = [self.matchedUser objectForKey:@"username"];
     [super viewWillAppear:animated];
@@ -160,7 +165,7 @@ const NSInteger textEditViewHeight = 44.0;
 {
     NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ICBIntroductionView" owner:self options:nil];
     UIView *introductionView = [nibObjects firstObject];
-    CGRect introductionViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds) + self.navigationController.toolbar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight);
+    CGRect introductionViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds) + self.navigationController.toolbar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight - self.navigationController.toolbar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height);
     introductionView.frame = introductionViewFrame;
     self.introductionUsernameLabel.text = [self.matchedUser objectForKey:@"username"];
     self.introductionHintLabel.numberOfLines = 0;
