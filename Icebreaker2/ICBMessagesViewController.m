@@ -16,7 +16,7 @@
 @property (nonatomic, strong) UITableView *messagesView;
 @property (nonatomic, strong) UIView *sendMessageView;
 
-@property (nonatomic, weak) IBOutlet UITextField *composeMessageField;
+@property (nonatomic, weak) IBOutlet UITextView *composeMessageView;
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
 
 @property (nonatomic, strong) NSMutableArray *messages;
@@ -88,6 +88,7 @@ const NSInteger cellMargin = 18;
     NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ICBMessagesViewSendMessageView" owner:self options:nil];
     self.sendMessageView = [nibObjects firstObject];
     self.sendMessageView.frame = sendMessageViewFrame;
+    self.composeMessageView.delegate = self;
     [self.view addSubview:self.sendMessageView];
     
     // set up notifications for keyboard events
@@ -226,7 +227,7 @@ const NSInteger cellMargin = 18;
 -(IBAction)sendMessage:(id)sender {
     PFObject *message = [PFObject objectWithClassName:@"Message"];
     // sending empty strings is disallowed
-    NSString *content = self.composeMessageField.text;
+    NSString *content = self.composeMessageView.text;
     if ([content isEqualToString: @""]){
         return;
     }
@@ -243,7 +244,7 @@ const NSInteger cellMargin = 18;
             [self enableSendMessageElements];
         } else {
             // wipe the contents of the text field
-            self.composeMessageField.text = @"";
+            self.composeMessageView.text = @"";
             // add to messages property
             [self.messages addObject:message];
             // re-render table
@@ -284,11 +285,35 @@ const NSInteger cellMargin = 18;
     self.sendMessageButton.enabled = YES;
 }
 
-// handle all editing in the text field to change it's size dynamically
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+
+
+// on editing in text view, change heights of application views
+-(void)textViewDidChange:(UITextView *)textView
 {
-    // we don't actually use this to edit the text, so return NO
-    return NO;
+    // first, change the compose message view to fit its content
+    
+     // because iOS7's text view calculates content size lazily, we need to force this
+     // calculation ourselves
+
+    // note: the below is brittle and obtuse. it works well enough on iOS7 to allow a two-line, scrollable editing field.
+    
+    [self.composeMessageView.layoutManager ensureLayoutForTextContainer:self.composeMessageView.textContainer];
+    CGRect containerRect = [self.composeMessageView.layoutManager usedRectForTextContainer:self.composeMessageView.textContainer];
+    
+    // take insets into consideration
+    float composeMessageViewHeight = ceilf(containerRect.size.height + textView.textContainerInset.top + textView.textContainerInset.bottom);
+    
+    // set the frame of the compose message view
+    self.composeMessageView.frame = CGRectMake(self.composeMessageView.frame.origin.x, self.composeMessageView.frame.origin.y, self.composeMessageView.contentSize.width, composeMessageViewHeight);
+    
+    [self.composeMessageView sizeToFit];
+    [self.composeMessageView layoutIfNeeded];
+     
+    // then, change the send message view to fit the compose message view
+    CGFloat sendMessageViewY = self.view.frame.size.height - self.composeMessageView.frame.size.height - 14;
+    CGFloat sendMessageViewWidth = self.sendMessageView.frame.size.width;
+    CGFloat sendMessageViewHeight = self.composeMessageView.frame.size.height + 14;
+    self.sendMessageView.frame = CGRectMake(self.sendMessageView.frame.origin.x, sendMessageViewY, sendMessageViewWidth, sendMessageViewHeight);
 }
 
 #pragma mark - resizing views on keyboard appearance
@@ -328,6 +353,10 @@ const NSInteger cellMargin = 18;
         int newSendMessageViewY = newMessagesViewHeight;
         CGRect newSendMessageViewFrame = CGRectMake(sendMessageViewX, newSendMessageViewY, sendMessageViewWidth, sendMessageViewHeight);
         self.sendMessageView.frame = newSendMessageViewFrame;
+        
+        // resize the main view, since we can't use any of the space under the keyboard
+        CGFloat newControllerViewHeight = controllerViewHeight - keyboardHeight;
+        self.view.frame = CGRectMake(controllerViewX, controllerViewY, controllerViewWidth, newControllerViewHeight);
     }];
     
     // if necessary, scroll messageView to bottom now that animations are done
