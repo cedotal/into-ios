@@ -18,6 +18,9 @@
 @property (nonatomic, strong) UIView *sendMessageView;
 @property (nonatomic, weak) IBOutlet UITextView *composeMessageView;
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
+@property (nonatomic, strong) IBOutlet UILabel *introductionUsernameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *introductionHintLabel;
+
 
 // store messages on the controller
 @property (nonatomic, strong) NSMutableArray *messages;
@@ -155,9 +158,28 @@ const NSInteger textEditViewHeight = 44.0;
 
 -(UIView *)createIntroductionView
 {
-    CGRect introductionViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight);
-    UIView *introductionView = [[UIView alloc] initWithFrame:introductionViewFrame];
-    introductionView.backgroundColor = [UIColor redColor];
+    NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ICBIntroductionView" owner:self options:nil];
+    UIView *introductionView = [nibObjects firstObject];
+    CGRect introductionViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds) + self.navigationController.toolbar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight);
+    introductionView.frame = introductionViewFrame;
+    self.introductionUsernameLabel.text = [self.matchedUser objectForKey:@"username"];
+    self.introductionHintLabel.numberOfLines = 0;
+    NSMutableString *hintString = [[NSMutableString alloc] init];
+    [hintString appendString:@"Hint: they're into"];
+    for(int i = 0; i < [[self.matchedUser objectForKey:@"interests"] count]; i++){
+        PFObject *interest = [self.matchedUser objectForKey:@"interests"][i];
+        if(i != [[self.matchedUser objectForKey:@"interests"] count] - 1){
+            [hintString appendString:@" "];
+            [hintString appendString:[interest objectForKey:@"name"]];
+            [hintString appendString:@","];
+        } else {
+            [hintString appendString:@" and "];
+            [hintString appendString:[interest objectForKey:@"name"]];
+            [hintString appendString:@"."];
+        }
+        
+    }
+    self.introductionHintLabel.text = [hintString copy];
     return introductionView;
 }
 

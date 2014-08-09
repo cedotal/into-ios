@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A3978EC1996BA0F00215B4D /* ICBIntroductionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A3978EB1996BA0F00215B4D /* ICBIntroductionView.xib */; };
 		7A43F2581969FF8F000AC8BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2571969FF8F000AC8BE /* Foundation.framework */; };
 		7A43F25A1969FF8F000AC8BE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2591969FF8F000AC8BE /* CoreGraphics.framework */; };
 		7A43F25C1969FF8F000AC8BE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F25B1969FF8F000AC8BE /* UIKit.framework */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A3978EB1996BA0F00215B4D /* ICBIntroductionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICBIntroductionView.xib; sourceTree = "<group>"; };
 		7A43F2541969FF8F000AC8BE /* Icebreaker2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Icebreaker2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A43F2571969FF8F000AC8BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7A43F2591969FF8F000AC8BE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -297,6 +299,7 @@
 				7AA6A4411973530E00898C3D /* ICBMessagesViewController.h */,
 				7AA6A4421973530E00898C3D /* ICBMessagesViewController.m */,
 				7AA6A4461973578900898C3D /* ICBMessagesViewSendMessageView.xib */,
+				7A3978EB1996BA0F00215B4D /* ICBIntroductionView.xib */,
 				7A43F2A2196A0088000AC8BE /* ICBInterestsViewController.h */,
 				7A43F2A3196A0088000AC8BE /* ICBInterestsViewController.m */,
 				7A43F2A4196A0088000AC8BE /* ICBInterestsViewHeaderView.xib */,
@@ -393,6 +396,7 @@
 				7A43F2B4196A00C9000AC8BE /* ICBSignupViewController.xib in Resources */,
 				7A43F2621969FF8F000AC8BE /* InfoPlist.strings in Resources */,
 				7A43F2AB196A0099000AC8BE /* ICBLoginViewController.xib in Resources */,
+				7A3978EC1996BA0F00215B4D /* ICBIntroductionView.xib in Resources */,
 				7AA6A4471973578900898C3D /* ICBMessagesViewSendMessageView.xib in Resources */,
 				7AA725981972F78E00A11EEB /* ICBUserCell.xib in Resources */,
 				7A43F26A1969FF8F000AC8BE /* Images.xcassets in Resources */,
