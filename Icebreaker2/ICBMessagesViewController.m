@@ -97,6 +97,8 @@ const NSInteger cellMargin = 18;
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
     
+    self.navigationItem.title = [self.matchedUser objectForKey:@"username"];
+    
     // get messages for the first time
     [self fetchMessages];
 }
