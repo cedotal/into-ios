@@ -120,31 +120,55 @@ const NSInteger textEditViewHeight = 44.0;
     PFQuery *query = [self queryForTable];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error){
-            // update local data for messages
-            // custom setter method will handle the rest
-            self.messages = [NSMutableArray arrayWithArray:objects];
-            
-            if([self.messages count] == 0){
-                self.introductionView = self.createIntroductionView;
-                [self.view addSubview:self.introductionView];
-            } else {
-                self.introductionView = nil;
-            }
-            [self.tableView reloadData];
-            
-            // since it's the first time we put messages into the view, scroll down to
-            // bottom (most recent) message
-            [self scrollMessagesViewToBottom];
+            NSMutableDictionary *paramDict = [[NSMutableDictionary alloc] init];
+            [paramDict setObject:self.matchedUser.objectId
+                          forKey:@"fromUser"];
+            [paramDict setObject:[PFUser currentUser].objectId
+                          forKey:@"toUser"];
+            [PFCloud callFunctionInBackground:@"setReadReceipts"
+                               withParameters:[paramDict copy]
+                                        block:^(id object, NSError *error) {
+                                            if(!error){
+                                                // update local data for messages
+                                                // custom setter method will handle the rest
+                                                self.messages = [NSMutableArray arrayWithArray:objects];
+                                                
+                                                if([self.messages count] == 0){
+                                                    self.introductionView = self.createIntroductionView;
+                                                    [self.view addSubview:self.introductionView];
+                                                } else {
+                                                    self.introductionView = nil;
+                                                }
+                                                [self.tableView reloadData];
+                                                
+                                                // since it's the first time we put messages into the view, scroll down to
+                                                // bottom (most recent) message
+                                                [self scrollMessagesViewToBottom];
+                                            } else {
+                                                // if error and we're doing this for the first time, kick back to previous view
+                                                if(firstTime){
+                                                    [self returnUserToPreviousViewController];
+                                                }
+                                                // else fail silently
+                                            }
+                                        }];
         } else {
             // if error and we're doing this for the first time, kick back to previous view
             if(firstTime){
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You're not online!" message:@"You need to be online to send messages." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-                [alertView show];
-                [self.navigationController popViewControllerAnimated:YES];
+                [self returnUserToPreviousViewController];
             }
+            // else fail silently
         }
     }];
 }
+                                               
+-(void)returnUserToPreviousViewController
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You're not online!" message:@"You need to be online to send messages." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+    [alertView show];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+                                               
 
 - (void)viewWillAppear:(BOOL)animated
 {
