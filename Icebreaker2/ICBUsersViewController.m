@@ -11,6 +11,7 @@
 #import "ICBUserCell.h"
 #import "ICBMessagesViewController.h"
 #import "ICBInterest.h"
+#import "ICBTabBarController.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface ICBUsersViewController()
@@ -18,6 +19,12 @@
 @property (nonatomic) CLLocationManager *locationManager;
 
 @property (nonatomic) CLLocation *currentLocation;
+
+@property (nonatomic, strong) NSMutableArray *userIdsWithUnreadMessages;
+
+// timer for periodically attempting to look for new nearby users and update their
+// messaged state
+@property (nonatomic, strong) NSTimer *fetchUsersTimer;
 
 @end
 
@@ -27,6 +34,9 @@
 {
     self = [super init];
     if(self){
+        // init array of user ids with unread messages
+        self.userIdsWithUnreadMessages = [[NSMutableArray alloc] init];
+        
         // attributes to handle getting data from Parse
         self.parseClassName = @"_User";
         
@@ -69,16 +79,66 @@
     if(currentLocation){
         self.currentLocation = currentLocation;
     }
+    
+    // set up table update timer
+    self.fetchUsersTimer = [NSTimer scheduledTimerWithTimeInterval:8
+                                                               target:self
+                                                             selector:@selector(loadNewUsers)
+                                                             userInfo:nil
+                                                              repeats:YES];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
+    [self loadNewUsers];
 }
+
 -(void)loadNewUsers
 {
-    [self loadObjects];
+    // do not continue generating network calls if this controller is not on top of
+    // the stack
+    if(![self.navigationController.visibleViewController isKindOfClass:[ICBTabBarController class]]){
+        return;
+    }
+    
+    // NOTE: the implementation of this method has a flaw. since it calls the most
+    // recent N messages (parse default is 100) sent to the current user, if a user recieves more than
+    // N messages in between sessions, some new message indicators will not show up.
+    // fixing this will require reversing the order of the calls, which will require
+    // breaking out of the PFTableQueryView class.
+    
+    // first, perform a query that will allow us to distinguish users with
+    // unread messages to the current user
+    // get all messages...
+    PFQuery *query = [PFQuery queryWithClassName:@"Message"];
+    // ...sent to the current user...
+    [query whereKey:@"toUser" equalTo:[PFUser currentUser]];
+    // ...that are currently unread...
+    [query whereKey:@"readByRecipient" equalTo:@NO];
+    // ..ordered by time created...
+    [query orderByAscending:@"createdAt"];
+    // we don't need anything in the payload except for the id of the sending user
+    [query selectKeys:@[@"fromUser"]];
+    [query includeKey:@"fromUser"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+         if(!error){
+             // store result
+             [self.userIdsWithUnreadMessages removeAllObjects];
+             for(id object in objects){
+                 PFUser *user = [object objectForKey:@"fromUser"];
+                 if(![self.userIdsWithUnreadMessages containsObject:user.objectId]){
+                     [self.userIdsWithUnreadMessages addObject:user.objectId];
+                 }
+             }
+             // then get nearby users
+             [self loadObjects];
+         } else {
+             // fail silently
+         }
+     }];
 }
 
 // override the default no-op to get objects from Parse
@@ -99,7 +159,8 @@
         // if you don't have any interests, you can't have any matches
         // this is a hack around a parse limitation
         orQuery = [PFQuery queryWithClassName:@"_User"];
-        [orQuery whereKeyExists: @"dummy"];
+        // there is no "__dummyKey" -- this is intended to match nothing
+        [orQuery whereKeyExists: @"__dummyKey"];
     }
     // the user shouldn't see themselves
     [orQuery whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
@@ -110,7 +171,7 @@
     PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude
                                                longitude:self.currentLocation.coordinate.longitude];
     // include everyone on the goddamn planet
-    [orQuery whereKey:@"location" nearGeoPoint:point withinKilometers:25000];
+    [orQuery whereKey:@"location" nearGeoPoint:point withinKilometers:30000];
     
     return orQuery;
 }
@@ -172,6 +233,17 @@
     }
     cell.distanceLabel.text = distanceLabelText;
     
+    // determine if the nearby user has any unread messages waiting for the current user
+    if([self.userIdsWithUnreadMessages containsObject:matchedUser.objectId]){
+        UIColor *lightBlue = [UIColor colorWithRed:(200.0f/255.0f)
+                                             green:(247.0f/255.0f)
+                                              blue:(247.0f/255.0f)
+                                             alpha:1.0f];
+        cell.backgroundColor = lightBlue;
+    } else {
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+    
     return cell;
 }
 
@@ -201,7 +273,7 @@
                     forKey:@"location"];
     [currentUser saveEventually];
     
-    [self loadObjects];
+    [self loadNewUsers];
 }
 
 

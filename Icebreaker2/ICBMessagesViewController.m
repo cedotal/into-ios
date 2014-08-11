@@ -114,7 +114,7 @@ const NSInteger textEditViewHeight = 44.0;
 {
     // do not continue generating network calls if this controller is not on top of
     // the stack
-    if(self.navigationController.topViewController == self){
+    if(self.navigationController.visibleViewController == self){
         [self fetchMessagesWithFirstTimeBehavior:NO];
     }
 }
