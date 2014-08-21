@@ -38,6 +38,17 @@
         ICBInterestsViewController *ivc = [[ICBInterestsViewController alloc] init];
         self.interestsViewController = ivc;
         self.viewControllers = @[uvc, ivc];
+        
+        // set up item icons
+        uvc.tabBarItem.title = @"Matches";
+        UIImage *uvcImage = [[UIImage imageNamed:@"matches.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        uvc.tabBarItem.image = uvcImage;
+        
+        ivc.tabBarItem.title = @"Interests";
+        UIImage *ivcImage = [[UIImage imageNamed:@"interests.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        ivc.tabBarItem.image = ivcImage;
+
+
     }
     return self;
 }

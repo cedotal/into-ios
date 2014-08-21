@@ -24,15 +24,6 @@
 
 @implementation ICBInterestsViewController
 
--(instancetype)init
-{
-    self = [super init];
-    if(self){
-        self.tabBarItem.title = @"Interests";
-    }
-    return self;
-}
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];

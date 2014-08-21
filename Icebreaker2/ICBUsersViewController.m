@@ -39,9 +39,6 @@
         
         // attributes to handle getting data from Parse
         self.parseClassName = @"_User";
-        
-        // UI setup
-        self.tabBarItem.title = @"Matches";
     }
     return self;
 }
