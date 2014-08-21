@@ -145,9 +145,11 @@ const NSInteger textEditViewHeight = 44.0;
                                                 }
                                                 [self.tableView reloadData];
                                                 
-                                                // since it's the first time we put messages into the view, scroll down to
+                                                // if it's the first time we put messages into the view, scroll down to
                                                 // bottom (most recent) message
-                                                [self scrollMessagesViewToBottom];
+                                                if(firstTime){
+                                                    [self scrollMessagesViewToBottom];
+                                                }
                                             } else {
                                                 // if error and we're doing this for the first time, kick back to previous view
                                                 if(firstTime){
