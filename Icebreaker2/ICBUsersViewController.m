@@ -154,10 +154,10 @@
         orQuery = [PFQuery orQueryWithSubqueries: [interestQueries copy]];
     } else {
         // if you don't have any interests, you can't have any matches
-        // this is a hack around a parse limitation
-        orQuery = [PFQuery queryWithClassName:@"_User"];
-        // there is no "__dummyKey" -- this is intended to match nothing
-        [orQuery whereKeyExists: @"__dummyKey"];
+        PFQuery *emptyQuery = [PFQuery queryWithClassName:@"_User"];
+        [emptyQuery whereKey:@"interests" containedIn:[[NSArray alloc] init]];
+        [interestQueries addObject:emptyQuery];
+        orQuery = [PFQuery orQueryWithSubqueries: [interestQueries copy]];
     }
     // the user shouldn't see themselves
     [orQuery whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
