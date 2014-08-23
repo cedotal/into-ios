@@ -11,6 +11,7 @@
 #import "ICBInterestsViewController.h"
 #import "ICBInterestStore.h"
 #import "ICBInterestReviewViewController.h"
+#import "ICBProfileViewController.h"
 
 @interface ICBTabBarController()
 
@@ -36,8 +37,9 @@
         // set up tabbed views and their controllers
         ICBUsersViewController *uvc = [[ICBUsersViewController alloc] init];
         ICBInterestsViewController *ivc = [[ICBInterestsViewController alloc] init];
+        ICBProfileViewController *pvc = [[ICBProfileViewController alloc] init];
         self.interestsViewController = ivc;
-        self.viewControllers = @[uvc, ivc];
+        self.viewControllers = @[uvc, ivc, pvc];
         
         // set up item icons
         uvc.tabBarItem.title = @"Matches";
@@ -47,6 +49,11 @@
         ivc.tabBarItem.title = @"Interests";
         UIImage *ivcImage = [[UIImage imageNamed:@"interests.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         ivc.tabBarItem.image = ivcImage;
+        
+        pvc.tabBarItem.title = @"My Profile";
+        UIImage *pvcImage = [[UIImage imageNamed:@"interests.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        pvc.tabBarItem.image = pvcImage;
+
 
 
     }
@@ -59,10 +66,15 @@
     
     // init array of presented interest review view controllers
     self.presentedInterestReviewViewControllers = [[NSMutableArray alloc] init];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     if(![[ICBInterestStore sharedStore] userHasMinimumPreferredInterests]){
         [self presentInterestReviewViewControllerChainedUntilMinimumInterestsMet:true
-                                                                   withSuccessors:0];
+                                                                  withSuccessors:0];
     }
 }
 

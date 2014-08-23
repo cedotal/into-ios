@@ -46,6 +46,8 @@
 		7A43F2C6196A0160000AC8BE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2C5196A0160000AC8BE /* Security.framework */; };
 		7A43F2C8196A0165000AC8BE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2C7196A0165000AC8BE /* StoreKit.framework */; };
 		7A43F2CA196A0169000AC8BE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A43F2C9196A0169000AC8BE /* SystemConfiguration.framework */; };
+		7A504A7119A90D1E00BB62AB /* ICBProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A504A7019A90D1E00BB62AB /* ICBProfileViewController.m */; };
+		7A504A7319A90D5C00BB62AB /* ICBProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A504A7219A90D5C00BB62AB /* ICBProfileView.xib */; };
 		7AA6A4431973530E00898C3D /* ICBMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA6A4421973530E00898C3D /* ICBMessagesViewController.m */; };
 		7AA6A4471973578900898C3D /* ICBMessagesViewSendMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA6A4461973578900898C3D /* ICBMessagesViewSendMessageView.xib */; };
 		7AA6A453197975B000898C3D /* UIView+MWKeyboardAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA6A452197975B000898C3D /* UIView+MWKeyboardAnimation.m */; };
@@ -117,6 +119,9 @@
 		7A43F2C5196A0160000AC8BE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7A43F2C7196A0165000AC8BE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7A43F2C9196A0169000AC8BE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7A504A6F19A90D1E00BB62AB /* ICBProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICBProfileViewController.h; sourceTree = "<group>"; };
+		7A504A7019A90D1E00BB62AB /* ICBProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICBProfileViewController.m; sourceTree = "<group>"; };
+		7A504A7219A90D5C00BB62AB /* ICBProfileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICBProfileView.xib; sourceTree = "<group>"; };
 		7AA6A4411973530E00898C3D /* ICBMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICBMessagesViewController.h; sourceTree = "<group>"; };
 		7AA6A4421973530E00898C3D /* ICBMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICBMessagesViewController.m; sourceTree = "<group>"; };
 		7AA6A4461973578900898C3D /* ICBMessagesViewSendMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ICBMessagesViewSendMessageView.xib; sourceTree = "<group>"; };
@@ -258,9 +263,9 @@
 				7A43F2B0196A00C9000AC8BE /* ICBSignupViewController.h */,
 				7A43F2B1196A00C9000AC8BE /* ICBSignupViewController.m */,
 				7A43F2B2196A00C9000AC8BE /* ICBSignupViewController.xib */,
-				7A43F292196A0053000AC8BE /* ICBConnectingView.xib */,
 				7A43F293196A0053000AC8BE /* ICBConnectingViewController.h */,
 				7A43F294196A0053000AC8BE /* ICBConnectingViewController.m */,
+				7A43F292196A0053000AC8BE /* ICBConnectingView.xib */,
 			);
 			name = "Login and Signup";
 			sourceTree = "<group>";
@@ -303,6 +308,9 @@
 				7A43F2A2196A0088000AC8BE /* ICBInterestsViewController.h */,
 				7A43F2A3196A0088000AC8BE /* ICBInterestsViewController.m */,
 				7A43F2A4196A0088000AC8BE /* ICBInterestsViewHeaderView.xib */,
+				7A504A6F19A90D1E00BB62AB /* ICBProfileViewController.h */,
+				7A504A7019A90D1E00BB62AB /* ICBProfileViewController.m */,
+				7A504A7219A90D5C00BB62AB /* ICBProfileView.xib */,
 			);
 			name = "Main Application Views";
 			sourceTree = "<group>";
@@ -397,6 +405,7 @@
 				7A43F2621969FF8F000AC8BE /* InfoPlist.strings in Resources */,
 				7A43F2AB196A0099000AC8BE /* ICBLoginViewController.xib in Resources */,
 				7A3978EC1996BA0F00215B4D /* ICBIntroductionView.xib in Resources */,
+				7A504A7319A90D5C00BB62AB /* ICBProfileView.xib in Resources */,
 				7AA6A4471973578900898C3D /* ICBMessagesViewSendMessageView.xib in Resources */,
 				7AA725981972F78E00A11EEB /* ICBUserCell.xib in Resources */,
 				7A43F26A1969FF8F000AC8BE /* Images.xcassets in Resources */,
@@ -424,6 +433,7 @@
 				7A43F2641969FF8F000AC8BE /* main.m in Sources */,
 				7A43F2AF196A00BD000AC8BE /* ICBUsersViewController.m in Sources */,
 				7A43F29E196A006D000AC8BE /* ICBInterestReviewViewController.m in Sources */,
+				7A504A7119A90D1E00BB62AB /* ICBProfileViewController.m in Sources */,
 				7AA6A453197975B000898C3D /* UIView+MWKeyboardAnimation.m in Sources */,
 				7AA725961972F76100A11EEB /* ICBUserCell.m in Sources */,
 				7A43F2A1196A0078000AC8BE /* ICBInterestStore.m in Sources */,
