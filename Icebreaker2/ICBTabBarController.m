@@ -51,11 +51,8 @@
         ivc.tabBarItem.image = ivcImage;
         
         pvc.tabBarItem.title = @"My Profile";
-        UIImage *pvcImage = [[UIImage imageNamed:@"interests.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *pvcImage = [[UIImage imageNamed:@"MyProfile.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         pvc.tabBarItem.image = pvcImage;
-
-
-
     }
     return self;
 }
