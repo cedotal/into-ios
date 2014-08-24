@@ -12,7 +12,7 @@
 @interface ICBProfileViewController() <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet PFImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UIButton *changeProfileImageButton;
 
 @end
@@ -29,6 +29,11 @@
     
     self.changeProfileImageButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self updateChangeProfileImageButtonTitle];
+    
+    if([[PFUser currentUser] objectForKey:@"profileImage1"]){
+        self.profileImageView.file = [[PFUser currentUser] objectForKey:@"profileImage1"];
+        [self.profileImageView loadInBackground];
+    }
 }
 
 - (IBAction)userTappedChangeUsernameButton:(id)sender {
@@ -43,13 +48,13 @@
                           delegate:self
                  cancelButtonTitle:@"Cancel"
             destructiveButtonTitle:nil
-                 otherButtonTitles:@"Use Existing Image", @"Take Photo", nil];
+                 otherButtonTitles:@"Use Image from Phone", @"Take Photo", nil];
     } else {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"Profile Image"
                                                   delegate:self
                                          cancelButtonTitle:@"Cancel"
                                     destructiveButtonTitle:nil
-                                         otherButtonTitles:@"Use Existing Image", nil];
+                                         otherButtonTitles:@"Use Image from Phone", nil];
     }
     [actionSheet showInView:self.view];
 }
@@ -92,6 +97,8 @@
     
     imagePicker.delegate = self;
     
+    imagePicker.allowsEditing = YES;
+    
     // place image picker on the screen
     
     [self presentViewController:imagePicker
@@ -107,6 +114,8 @@
     
     imagePicker.delegate = self;
     
+    imagePicker.allowsEditing = YES;
+    
     // place image picker on the screen
     
     [self presentViewController:imagePicker
@@ -117,7 +126,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     // get picked image from info dict
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    UIImage *image = info[UIImagePickerControllerEditedImage];
     
     // create
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
@@ -131,7 +140,11 @@
     
     [currentUser saveInBackground];
     
+    self.profileImageView.image = image;
+    
     // take image picker off the screen - you must call this dismiss method
+    
+    [self updateChangeProfileImageButtonTitle];
     
     // dismiss the modal image picker
     [self dismissViewControllerAnimated:YES
