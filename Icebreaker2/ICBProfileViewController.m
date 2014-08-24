@@ -9,7 +9,7 @@
 #import "ICBProfileViewController.h"
 #include <Parse/Parse.h>
 
-@interface ICBProfileViewController() <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface ICBProfileViewController() <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet PFImageView *profileImageView;
@@ -37,7 +37,38 @@
 }
 
 - (IBAction)userTappedChangeUsernameButton:(id)sender {
-    
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Change username"
+                                                 message:@"Enter your new username."
+                                                delegate:self
+                                       cancelButtonTitle:@"Cancel"
+                                       otherButtonTitles:@"Submit", nil];
+    av.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [av show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1){
+        NSString *oldUsername = [[[PFUser currentUser] objectForKey:@"username"] copy];
+        NSString *newUsername = [alertView textFieldAtIndex:0].text;
+        self.usernameLabel.text = newUsername;
+        [[PFUser currentUser]setObject:newUsername
+                                forKey:@"username"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if(error){
+                self.usernameLabel.text = oldUsername;
+                [[PFUser currentUser] setObject:oldUsername
+                                         forKey:@"username"];
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                             message:error.userInfo[@"error"]
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Okay"
+                                                   otherButtonTitles: nil];
+                [av show];
+            }
+            // else do nothing
+        }];
+    }
 }
 
 - (IBAction)userTappedChangeProfileImageButton:(id)sender
