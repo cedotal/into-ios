@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface ICBUserCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *interestLabel3;
 @property (weak, nonatomic) IBOutlet UILabel *interestLabel4;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet PFImageView *profileImage;
 
 
 @end

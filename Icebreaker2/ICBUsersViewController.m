@@ -241,6 +241,12 @@
         cell.backgroundColor = [UIColor whiteColor];
     }
     
+    // set up profile image
+    if([matchedUser objectForKey:@"profileImage1"]){
+        cell.profileImage.file = [matchedUser objectForKey:@"profileImage1"];
+        [cell.profileImage loadInBackground];
+    }
+    
     return cell;
 }
 

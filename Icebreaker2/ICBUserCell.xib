@@ -55,6 +55,10 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a5A-kM-EIg" customClass="PFImageView">
+                        <rect key="frame" x="47" y="8" width="82" height="82"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -63,6 +67,7 @@
                 <outlet property="interestLabel2" destination="Rls-V0-9uc" id="Glb-Ij-Wat"/>
                 <outlet property="interestLabel3" destination="kpm-6l-6lW" id="aPY-en-wtv"/>
                 <outlet property="interestLabel4" destination="5th-qx-fiE" id="01X-IX-7Ke"/>
+                <outlet property="profileImage" destination="a5A-kM-EIg" id="1Ka-t4-UHO"/>
                 <outlet property="usernameLabel" destination="Wa1-kH-WMU" id="DHQ-8t-gTI"/>
             </connections>
         </tableViewCell>
