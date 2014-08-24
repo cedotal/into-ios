@@ -177,6 +177,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)matchedUser
 {
     ICBUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ICBUserCell" forIndexPath:indexPath];
+    // we're reusing a cell, so reset all of the attributes of the cell
+    cell.usernameLabel.text = nil;
+    cell.interestLabel1.text = nil;
+    cell.interestLabel2.text = nil;
+    cell.interestLabel3.text = nil;
+    cell.interestLabel4.text = nil;
+    cell.distanceLabel.text = nil;
+    cell.profileImage.image = nil;
+    
     // main label is the user's username
     cell.usernameLabel.text = [matchedUser objectForKey:@"username"];
     // sublabel lists the user's interests, prioritizing those that are in common with the current user

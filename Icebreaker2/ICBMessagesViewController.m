@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
 @property (nonatomic, strong) IBOutlet UILabel *introductionUsernameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *introductionHintLabel;
+@property (nonatomic, strong) IBOutlet PFImageView *profileImage;
 
 
 // store messages on the controller
@@ -215,6 +216,12 @@ const NSInteger textEditViewHeight = 44.0;
         
     }
     self.introductionHintLabel.text = [hintString copy];
+    
+    if([self.matchedUser objectForKey:@"profileImage1"]){
+        self.profileImage.file = [self.matchedUser objectForKey:@"profileImage1"];
+        [self.profileImage loadInBackground];
+    }
+    
     return introductionView;
 }
 
