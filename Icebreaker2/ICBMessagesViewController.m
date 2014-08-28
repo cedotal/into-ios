@@ -140,10 +140,12 @@ const NSInteger textEditViewHeight = 44.0;
                                                 
                                                 if([self.messages count] > 0){
                                                     [self.introductionView removeFromSuperview];
+                                                    [self addUserProfileButton];
                                                     
                                                 } else if (![self.view.subviews containsObject:self.introductionView]){
                                                     self.introductionView = self.createIntroductionView;
                                                     [self.view addSubview:self.introductionView];
+                                                    [self removeUserProfileButton];
                                                 }
                                                 [self.tableView reloadData];
                                                 
@@ -189,19 +191,34 @@ const NSInteger textEditViewHeight = 44.0;
     [self.navigationController navigationItem].title = [self.matchedUser objectForKey:@"username"];
     
     // set up user profile button
-    if([self.matchedUser objectForKey:@"profileImage1"]){
-        PFImageView *buttonView = [[PFImageView alloc] init];
-        buttonView.file = [self.matchedUser objectForKey:@"profileImage1"];
-        [buttonView loadInBackground];
-        self.navigationItem.rightBarButtonItem.customView = buttonView;
-    } else {
-        UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:@"Profile"
-                                                               style:UIBarButtonItemStylePlain
-                                                              target:self
-                                                              action:@selector(userTappedProfileButton)];
-        self.navigationItem.rightBarButtonItem = bi;
-    }
+    [self addUserProfileButton];
     [super viewWillAppear:animated];
+}
+
+-(void)addUserProfileButton
+{
+    if(self.navigationItem.rightBarButtonItem == nil){
+        if([self.matchedUser objectForKey:@"profileImage1"]){
+            PFImageView *buttonView = [[PFImageView alloc] init];
+            int buttonMargin = 5;
+            buttonView.frame = CGRectMake(buttonMargin, buttonMargin, (self.navigationController.toolbar.frame.size.height - buttonMargin*2), (self.navigationController.toolbar.frame.size.height - buttonMargin*2));
+            buttonView.file = [self.matchedUser objectForKey:@"profileImage1"];
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonView];
+            [buttonView loadInBackground];
+        } else {
+            UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:@"Profile"
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(userTappedProfileButton)];
+            self.navigationItem.rightBarButtonItem = bi;
+        }
+    }
+
+}
+
+-(void)removeUserProfileButton
+{
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 #pragma mark - methods for rendering the introduction view and messages view
