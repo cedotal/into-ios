@@ -8,6 +8,7 @@
 
 #import "ICBMessagesViewController.h"
 #import "UIView+MWKeyboardAnimation.h"
+#import "ICBOtherUserProfileView.h"
 
 @interface ICBMessagesViewController()
 
@@ -225,14 +226,13 @@ const NSInteger textEditViewHeight = 44.0;
 
 -(UIView *)createIntroductionView
 {
-    NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ICBIntroductionView" owner:self options:nil];
-    UIView *introductionView = [nibObjects firstObject];
+    UIView *introductionView = [[ICBOtherUserProfileView alloc] initWithUser:self.matchedUser];
     CGRect introductionViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds) + self.navigationController.toolbar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight - self.navigationController.toolbar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height);
     introductionView.frame = introductionViewFrame;
     self.introductionUsernameLabel.text = [self.matchedUser objectForKey:@"username"];
     self.introductionHintLabel.numberOfLines = 0;
     NSMutableString *hintString = [[NSMutableString alloc] init];
-    [hintString appendString:@"Hint: they're into"];
+    [hintString appendString:@"They're into"];
     for(int i = 0; i < [[self.matchedUser objectForKey:@"interests"] count]; i++){
         PFObject *interest = [self.matchedUser objectForKey:@"interests"][i];
         if(i != [[self.matchedUser objectForKey:@"interests"] count] - 1){
