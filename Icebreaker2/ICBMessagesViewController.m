@@ -56,7 +56,7 @@ const NSInteger textEditViewHeight = 44.0;
     if (self){
         _matchedUser = matchedUser;
         self.fetchMessagesTimer = [NSTimer scheduledTimerWithTimeInterval:2
-                                                                   target: self
+                                                                   target:self
                                                                  selector:@selector(fetchMessages)
                                                                  userInfo:nil
                                                                   repeats:YES];
@@ -138,11 +138,12 @@ const NSInteger textEditViewHeight = 44.0;
                                                 // custom setter method will handle the rest
                                                 self.messages = [NSMutableArray arrayWithArray:objects];
                                                 
-                                                if([self.messages count] == 0){
+                                                if([self.messages count] > 0){
+                                                    [self.introductionView removeFromSuperview];
+                                                    
+                                                } else if (![self.view.subviews containsObject:self.introductionView]){
                                                     self.introductionView = self.createIntroductionView;
                                                     [self.view addSubview:self.introductionView];
-                                                } else {
-                                                    self.introductionView = nil;
                                                 }
                                                 [self.tableView reloadData];
                                                 
@@ -184,9 +185,22 @@ const NSInteger textEditViewHeight = 44.0;
     self.composeMessageView.layer.borderWidth = 0.7f;
     self.composeMessageView.layer.cornerRadius = 5.0f;
 
-    
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [self.navigationController navigationItem].title = [self.matchedUser objectForKey:@"username"];
+    
+    // set up user profile button
+    if([self.matchedUser objectForKey:@"profileImage1"]){
+        PFImageView *buttonView = [[PFImageView alloc] init];
+        buttonView.file = [self.matchedUser objectForKey:@"profileImage1"];
+        [buttonView loadInBackground];
+        self.navigationItem.rightBarButtonItem.customView = buttonView;
+    } else {
+        UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:@"Profile"
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(userTappedProfileButton)];
+        self.navigationItem.rightBarButtonItem = bi;
+    }
     [super viewWillAppear:animated];
 }
 
@@ -468,6 +482,14 @@ const NSInteger textEditViewHeight = 44.0;
                                          animated:YES];
     }
 }
+
+# pragma mark - methods for opening the profile view
+
+-(void)userTappedProfileButton
+{
+    // TODO
+}
+
 
 # pragma mark - methods for tearing down the controller
 
