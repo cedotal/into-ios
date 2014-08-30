@@ -13,15 +13,11 @@
 @interface ICBMessagesViewController()
 
 // pointers to important subviews
-@property (nonatomic, strong) UIView *introductionView;
+@property (nonatomic, strong) ICBOtherUserProfileView *introductionView;
 @property (nonatomic, strong) UITableView *messagesView;
 @property (nonatomic, strong) UIView *sendMessageView;
 @property (nonatomic, weak) IBOutlet UITextView *composeMessageView;
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
-@property (nonatomic, strong) IBOutlet UILabel *introductionUsernameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *introductionHintLabel;
-@property (nonatomic, strong) IBOutlet PFImageView *profileImage;
-
 
 // store messages on the controller
 @property (nonatomic, strong) NSMutableArray *messages;
@@ -224,34 +220,11 @@ const NSInteger textEditViewHeight = 44.0;
 
 #pragma mark - methods for rendering the introduction view and messages view
 
--(UIView *)createIntroductionView
+-(ICBOtherUserProfileView *)createIntroductionView
 {
-    UIView *introductionView = [[ICBOtherUserProfileView alloc] initWithUser:self.matchedUser];
     CGRect introductionViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds) + self.navigationController.toolbar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight - self.navigationController.toolbar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height);
-    introductionView.frame = introductionViewFrame;
-    self.introductionUsernameLabel.text = [self.matchedUser objectForKey:@"username"];
-    self.introductionHintLabel.numberOfLines = 0;
-    NSMutableString *hintString = [[NSMutableString alloc] init];
-    [hintString appendString:@"They're into"];
-    for(int i = 0; i < [[self.matchedUser objectForKey:@"interests"] count]; i++){
-        PFObject *interest = [self.matchedUser objectForKey:@"interests"][i];
-        if(i != [[self.matchedUser objectForKey:@"interests"] count] - 1){
-            [hintString appendString:@" "];
-            [hintString appendString:[interest objectForKey:@"name"]];
-            [hintString appendString:@","];
-        } else {
-            [hintString appendString:@" and "];
-            [hintString appendString:[interest objectForKey:@"name"]];
-            [hintString appendString:@"."];
-        }
-        
-    }
-    self.introductionHintLabel.text = [hintString copy];
-    
-    if([self.matchedUser objectForKey:@"profileImage1"]){
-        self.profileImage.file = [self.matchedUser objectForKey:@"profileImage1"];
-        [self.profileImage loadInBackground];
-    }
+    ICBOtherUserProfileView *introductionView = [[ICBOtherUserProfileView alloc] initWithFrame:introductionViewFrame
+                                                                                       andUser:self.matchedUser];
     
     return introductionView;
 }
@@ -467,6 +440,7 @@ const NSInteger textEditViewHeight = 44.0;
         // if introduction view is visible, resize it
         if(self.introductionView){
             self.introductionView.frame = newMessagesViewFrame;
+            [self.introductionView resizeSubviews];
         }
         
         // move the sendMessagesView to immediately below the new messagesView

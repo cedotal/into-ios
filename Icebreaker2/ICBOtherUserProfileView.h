@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
-@interface ICBProfileView : UIView
+@interface ICBOtherUserProfileView : UIView
+
+-(instancetype)initWithFrame:(CGRect)frame
+                     andUser:(PFObject *)user;
+
+-(void)updateSubviews;
+-(void)resizeSubviews;
 
 @end
