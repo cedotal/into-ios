@@ -33,6 +33,8 @@
     if([[PFUser currentUser] objectForKey:@"profileImage1"]){
         self.profileImageView.file = [[PFUser currentUser] objectForKey:@"profileImage1"];
         [self.profileImageView loadInBackground];
+    } else {
+        self.profileImageView.image = [UIImage imageNamed:@"noprofileimage"];
     }
 }
 

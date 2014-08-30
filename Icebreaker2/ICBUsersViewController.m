@@ -254,6 +254,8 @@
     if([matchedUser objectForKey:@"profileImage1"]){
         cell.profileImage.file = [matchedUser objectForKey:@"profileImage1"];
         [cell.profileImage loadInBackground];
+    } else {
+        cell.profileImage.image = [UIImage imageNamed:@"noprofileimage"];
     }
     
     return cell;

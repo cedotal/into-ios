@@ -220,9 +220,15 @@ const NSInteger textEditViewHeight = 44.0;
 
 #pragma mark - methods for rendering the introduction view and messages view
 
--(ICBOtherUserProfileView *)createIntroductionView
+-(CGRect)createIntroductionViewFrame
 {
     CGRect introductionViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds) + self.navigationController.toolbar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight - self.navigationController.toolbar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height);
+    return introductionViewFrame;
+}
+
+-(ICBOtherUserProfileView *)createIntroductionView
+{
+    CGRect introductionViewFrame = [self createIntroductionViewFrame];
     ICBOtherUserProfileView *introductionView = [[ICBOtherUserProfileView alloc] initWithFrame:introductionViewFrame
                                                                                        andUser:self.matchedUser];
     
@@ -478,7 +484,15 @@ const NSInteger textEditViewHeight = 44.0;
 
 -(void)userTappedProfileButton
 {
-    // TODO
+    ICBOtherUserProfileView *oupv = [[ICBOtherUserProfileView alloc] initWithFrame:[self createIntroductionViewFrame]
+                                                                           andUser:self.matchedUser];
+    UIViewController *oupvController = [[UIViewController alloc] init];
+    [oupvController.view addSubview:oupv];
+    CGRect dummy = oupvController.view.frame;
+    [self.navigationController pushViewController:oupvController
+                                         animated:YES];
+    // oupvController.view.frame = frame;
+    dummy = oupvController.view.frame;
 }
 
 
