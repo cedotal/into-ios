@@ -75,7 +75,7 @@ const NSInteger textEditViewHeight = 44.0;
     // ** a textEditView for the text editing textField and button
     
     // initialize the messages table view
-    CGRect messagesViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight);
+    CGRect messagesViewFrame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds) + self.navigationController.toolbar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - textEditViewHeight - self.navigationController.toolbar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height);
     self.messagesView = [[UITableView alloc] initWithFrame:messagesViewFrame
                                                      style:UITableViewStylePlain];
     
@@ -442,8 +442,8 @@ const NSInteger textEditViewHeight = 44.0;
         
         // resize the messagesView to allow the sendMessageView to show above
         // the keyboard
-        int newMessagesViewHeight = controllerViewHeight - keyboardHeight - sendMessageViewHeight;
-        CGRect newMessagesViewFrame = CGRectMake(controllerViewX, controllerViewY, controllerViewWidth, newMessagesViewHeight);
+        int newMessagesViewHeight = controllerViewHeight - keyboardHeight - sendMessageViewHeight - self.navigationController.toolbar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
+        CGRect newMessagesViewFrame = CGRectMake(controllerViewX, controllerViewY + self.navigationController.toolbar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, controllerViewWidth, newMessagesViewHeight);
         self.messagesView.frame = newMessagesViewFrame;
         
         // if introduction view is visible, resize it
@@ -453,7 +453,7 @@ const NSInteger textEditViewHeight = 44.0;
         }
         
         // move the sendMessagesView to immediately below the new messagesView
-        int newSendMessageViewY = newMessagesViewHeight;
+        int newSendMessageViewY = newMessagesViewHeight + self.navigationController.toolbar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
         CGRect newSendMessageViewFrame = CGRectMake(sendMessageViewX, newSendMessageViewY, sendMessageViewWidth, sendMessageViewHeight);
         self.sendMessageView.frame = newSendMessageViewFrame;
         
