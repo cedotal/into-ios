@@ -200,6 +200,9 @@ const NSInteger textEditViewHeight = 44.0;
             int buttonMargin = 5;
             buttonView.frame = CGRectMake(buttonMargin, buttonMargin, (self.navigationController.toolbar.frame.size.height - buttonMargin*2), (self.navigationController.toolbar.frame.size.height - buttonMargin*2));
             buttonView.file = [self.matchedUser objectForKey:@"profileImage1"];
+            UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                  action:@selector(userTappedProfileButton)];
+            [buttonView addGestureRecognizer:tgr];
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonView];
             [buttonView loadInBackground];
         } else {
