@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j87-Tx-XY5">
-                    <rect key="frame" x="144" y="334" width="43" height="30"/>
+                    <rect key="frame" x="60" y="471" width="43" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Log in">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -27,7 +27,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lek-ip-uO2">
-                    <rect key="frame" x="139" y="423" width="53" height="30"/>
+                    <rect key="frame" x="207" y="471" width="53" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Sign up">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -37,18 +37,52 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-large" translatesAutoresizingMaskIntoConstraints="NO" id="3k2-a8-SKa">
-                    <rect key="frame" x="65" y="70" width="200" height="200"/>
+                    <rect key="frame" x="60" y="66" width="200" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7at-Dq-U0A">
+                    <rect key="frame" x="93" y="293" width="134" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <string key="text">Find your people.
+
+</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQI-CM-JVy">
+                    <rect key="frame" x="79" y="346" width="162" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <string key="text">Find your subculture.
+
+</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tk-QP-bi4">
+                    <rect key="frame" x="90" y="400" width="140" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <string key="text">Find your fandom.
+
+</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="3k2-a8-SKa" secondAttribute="centerY" constant="114" id="6m6-nR-6Zw"/>
-                <constraint firstAttribute="centerX" secondItem="lek-ip-uO2" secondAttribute="centerX" constant="-5.5" id="ahN-ka-1At"/>
-                <constraint firstAttribute="centerY" secondItem="lek-ip-uO2" secondAttribute="centerY" constant="-154" id="cKn-rE-B0X"/>
-                <constraint firstAttribute="centerY" secondItem="j87-Tx-XY5" secondAttribute="centerY" constant="-65" id="jB7-GX-oXR"/>
-                <constraint firstAttribute="centerX" secondItem="j87-Tx-XY5" secondAttribute="centerX" constant="-5.5" id="rdF-lC-t9e"/>
-                <constraint firstAttribute="centerX" secondItem="3k2-a8-SKa" secondAttribute="centerX" constant="-5" id="ysr-c8-lLO"/>
+                <constraint firstAttribute="centerY" secondItem="3k2-a8-SKa" secondAttribute="centerY" constant="118" id="6m6-nR-6Zw"/>
+                <constraint firstAttribute="centerY" secondItem="6tk-QP-bi4" secondAttribute="centerY" constant="-126.5" id="BjU-Ff-RSd"/>
+                <constraint firstAttribute="centerX" secondItem="lek-ip-uO2" secondAttribute="centerX" constant="-73.5" id="ahN-ka-1At"/>
+                <constraint firstAttribute="centerY" secondItem="lek-ip-uO2" secondAttribute="centerY" constant="-202" id="cKn-rE-B0X"/>
+                <constraint firstAttribute="centerX" secondItem="XQI-CM-JVy" secondAttribute="centerX" id="ecA-Lp-fSP"/>
+                <constraint firstAttribute="centerY" secondItem="7at-Dq-U0A" secondAttribute="centerY" constant="-19.5" id="j94-5o-R4I"/>
+                <constraint firstAttribute="centerY" secondItem="j87-Tx-XY5" secondAttribute="centerY" constant="-202" id="jB7-GX-oXR"/>
+                <constraint firstAttribute="centerX" secondItem="7at-Dq-U0A" secondAttribute="centerX" id="jfv-8o-Psg"/>
+                <constraint firstAttribute="centerX" secondItem="6tk-QP-bi4" secondAttribute="centerX" id="ncC-MB-tCY"/>
+                <constraint firstAttribute="centerX" secondItem="j87-Tx-XY5" secondAttribute="centerX" constant="78.5" id="rdF-lC-t9e"/>
+                <constraint firstAttribute="centerY" secondItem="XQI-CM-JVy" secondAttribute="centerY" constant="-72.5" id="vAu-M2-2an"/>
+                <constraint firstAttribute="centerX" secondItem="3k2-a8-SKa" secondAttribute="centerX" id="ysr-c8-lLO"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
