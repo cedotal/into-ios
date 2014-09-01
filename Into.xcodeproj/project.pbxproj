@@ -66,18 +66,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7A43F2541969FF8F000AC8BE /* Icebreaker2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Icebreaker2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A43F2541969FF8F000AC8BE /* Into.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Into.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A43F2571969FF8F000AC8BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7A43F2591969FF8F000AC8BE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7A43F25B1969FF8F000AC8BE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		7A43F25F1969FF8F000AC8BE /* Icebreaker2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Icebreaker2-Info.plist"; sourceTree = "<group>"; };
+		7A43F25F1969FF8F000AC8BE /* Into-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Into-Info.plist"; sourceTree = "<group>"; };
 		7A43F2611969FF8F000AC8BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7A43F2631969FF8F000AC8BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7A43F2651969FF8F000AC8BE /* Icebreaker2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Icebreaker2-Prefix.pch"; sourceTree = "<group>"; };
+		7A43F2651969FF8F000AC8BE /* Into-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Into-Prefix.pch"; sourceTree = "<group>"; };
 		7A43F2691969FF8F000AC8BE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		7A43F26F1969FF8F000AC8BE /* Icebreaker2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Icebreaker2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A43F26F1969FF8F000AC8BE /* IntoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A43F2701969FF8F000AC8BE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		7A43F2781969FF8F000AC8BE /* Icebreaker2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Icebreaker2Tests-Info.plist"; sourceTree = "<group>"; };
+		7A43F2781969FF8F000AC8BE /* IntoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IntoTests-Info.plist"; sourceTree = "<group>"; };
 		7A43F27A1969FF8F000AC8BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7A43F27C1969FF8F000AC8BE /* Icebreaker2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Icebreaker2Tests.m; sourceTree = "<group>"; };
 		7A43F28A1969FFF9000AC8BE /* ICBWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICBWelcomeViewController.h; sourceTree = "<group>"; };
@@ -180,8 +180,8 @@
 		7A43F2551969FF8F000AC8BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7A43F2541969FF8F000AC8BE /* Icebreaker2.app */,
-				7A43F26F1969FF8F000AC8BE /* Icebreaker2Tests.xctest */,
+				7A43F2541969FF8F000AC8BE /* Into.app */,
+				7A43F26F1969FF8F000AC8BE /* IntoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,10 +226,10 @@
 		7A43F25E1969FF8F000AC8BE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7A43F25F1969FF8F000AC8BE /* Icebreaker2-Info.plist */,
+				7A43F25F1969FF8F000AC8BE /* Into-Info.plist */,
 				7A43F2601969FF8F000AC8BE /* InfoPlist.strings */,
 				7A43F2631969FF8F000AC8BE /* main.m */,
-				7A43F2651969FF8F000AC8BE /* Icebreaker2-Prefix.pch */,
+				7A43F2651969FF8F000AC8BE /* Into-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -246,7 +246,7 @@
 		7A43F2771969FF8F000AC8BE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7A43F2781969FF8F000AC8BE /* Icebreaker2Tests-Info.plist */,
+				7A43F2781969FF8F000AC8BE /* IntoTests-Info.plist */,
 				7A43F2791969FF8F000AC8BE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -329,9 +329,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7A43F2531969FF8F000AC8BE /* Icebreaker2 */ = {
+		7A43F2531969FF8F000AC8BE /* Into */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A43F2801969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Icebreaker2" */;
+			buildConfigurationList = 7A43F2801969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Into" */;
 			buildPhases = (
 				7A43F2501969FF8F000AC8BE /* Sources */,
 				7A43F2511969FF8F000AC8BE /* Frameworks */,
@@ -341,14 +341,14 @@
 			);
 			dependencies = (
 			);
-			name = Icebreaker2;
+			name = Into;
 			productName = Icebreaker2;
-			productReference = 7A43F2541969FF8F000AC8BE /* Icebreaker2.app */;
+			productReference = 7A43F2541969FF8F000AC8BE /* Into.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7A43F26E1969FF8F000AC8BE /* Icebreaker2Tests */ = {
+		7A43F26E1969FF8F000AC8BE /* IntoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A43F2831969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Icebreaker2Tests" */;
+			buildConfigurationList = 7A43F2831969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "IntoTests" */;
 			buildPhases = (
 				7A43F26B1969FF8F000AC8BE /* Sources */,
 				7A43F26C1969FF8F000AC8BE /* Frameworks */,
@@ -359,9 +359,9 @@
 			dependencies = (
 				7A43F2751969FF8F000AC8BE /* PBXTargetDependency */,
 			);
-			name = Icebreaker2Tests;
+			name = IntoTests;
 			productName = Icebreaker2Tests;
-			productReference = 7A43F26F1969FF8F000AC8BE /* Icebreaker2Tests.xctest */;
+			productReference = 7A43F26F1969FF8F000AC8BE /* IntoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -379,7 +379,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7A43F24F1969FF8F000AC8BE /* Build configuration list for PBXProject "Icebreaker2" */;
+			buildConfigurationList = 7A43F24F1969FF8F000AC8BE /* Build configuration list for PBXProject "Into" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -391,8 +391,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7A43F2531969FF8F000AC8BE /* Icebreaker2 */,
-				7A43F26E1969FF8F000AC8BE /* Icebreaker2Tests */,
+				7A43F2531969FF8F000AC8BE /* Into */,
+				7A43F26E1969FF8F000AC8BE /* IntoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -464,7 +464,7 @@
 /* Begin PBXTargetDependency section */
 		7A43F2751969FF8F000AC8BE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7A43F2531969FF8F000AC8BE /* Icebreaker2 */;
+			target = 7A43F2531969FF8F000AC8BE /* Into */;
 			targetProxy = 7A43F2741969FF8F000AC8BE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -569,9 +569,9 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Icebreaker2/Icebreaker2-Prefix.pch";
-				INFOPLIST_FILE = "Icebreaker2/Icebreaker2-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Icebreaker2/Into-Prefix.pch";
+				INFOPLIST_FILE = "Icebreaker2/Into-Info.plist";
+				PRODUCT_NAME = Into;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -586,9 +586,9 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Icebreaker2/Icebreaker2-Prefix.pch";
-				INFOPLIST_FILE = "Icebreaker2/Icebreaker2-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Icebreaker2/Into-Prefix.pch";
+				INFOPLIST_FILE = "Icebreaker2/Into-Info.plist";
+				PRODUCT_NAME = Into;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -608,8 +608,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Icebreaker2Tests/Icebreaker2Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "Icebreaker2Tests/IntoTests-Info.plist";
+				PRODUCT_NAME = IntoTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -626,8 +626,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Icebreaker2/Icebreaker2-Prefix.pch";
-				INFOPLIST_FILE = "Icebreaker2Tests/Icebreaker2Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "Icebreaker2Tests/IntoTests-Info.plist";
+				PRODUCT_NAME = IntoTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -636,7 +636,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7A43F24F1969FF8F000AC8BE /* Build configuration list for PBXProject "Icebreaker2" */ = {
+		7A43F24F1969FF8F000AC8BE /* Build configuration list for PBXProject "Into" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A43F27E1969FF8F000AC8BE /* Debug */,
@@ -645,7 +645,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A43F2801969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Icebreaker2" */ = {
+		7A43F2801969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Into" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A43F2811969FF8F000AC8BE /* Debug */,
@@ -654,7 +654,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A43F2831969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "Icebreaker2Tests" */ = {
+		7A43F2831969FF8F000AC8BE /* Build configuration list for PBXNativeTarget "IntoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A43F2841969FF8F000AC8BE /* Debug */,

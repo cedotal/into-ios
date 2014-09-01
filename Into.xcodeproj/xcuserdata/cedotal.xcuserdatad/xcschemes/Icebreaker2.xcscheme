@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7A43F2531969FF8F000AC8BE"
-               BuildableName = "Icebreaker2.app"
-               BlueprintName = "Icebreaker2"
-               ReferencedContainer = "container:Icebreaker2.xcodeproj">
+               BuildableName = "Into.app"
+               BlueprintName = "Into"
+               ReferencedContainer = "container:Into.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7A43F26E1969FF8F000AC8BE"
-               BuildableName = "Icebreaker2Tests.xctest"
-               BlueprintName = "Icebreaker2Tests"
-               ReferencedContainer = "container:Icebreaker2.xcodeproj">
+               BuildableName = "IntoTests.xctest"
+               BlueprintName = "IntoTests"
+               ReferencedContainer = "container:Into.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7A43F2531969FF8F000AC8BE"
-            BuildableName = "Icebreaker2.app"
-            BlueprintName = "Icebreaker2"
-            ReferencedContainer = "container:Icebreaker2.xcodeproj">
+            BuildableName = "Into.app"
+            BlueprintName = "Into"
+            ReferencedContainer = "container:Into.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7A43F2531969FF8F000AC8BE"
-            BuildableName = "Icebreaker2.app"
-            BlueprintName = "Icebreaker2"
-            ReferencedContainer = "container:Icebreaker2.xcodeproj">
+            BuildableName = "Into.app"
+            BlueprintName = "Into"
+            ReferencedContainer = "container:Into.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7A43F2531969FF8F000AC8BE"
-            BuildableName = "Icebreaker2.app"
-            BlueprintName = "Icebreaker2"
-            ReferencedContainer = "container:Icebreaker2.xcodeproj">
+            BuildableName = "Into.app"
+            BlueprintName = "Into"
+            ReferencedContainer = "container:Into.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

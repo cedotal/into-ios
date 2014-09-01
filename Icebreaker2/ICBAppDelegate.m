@@ -18,6 +18,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
     // ****************************************************************************
     // Parse initialization
 	[Parse setApplicationId:@"ZdJHjFNeFFfzj8DTzLl03wYGilzJ3coAPx9Ce6zn"
